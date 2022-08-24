@@ -1,7 +1,7 @@
 const express = require('express');
 const userController = require('../controllers/userController');
 const jwtController = require('../controllers/jwtController');
-// const clubController = require('../controllers/clubController');
+const toolController = require('../controllers/toolController');
 const router = express.Router();
 
 // get all users
@@ -22,7 +22,7 @@ router.get('/isAuth', jwtController.verifyToken, userController.findOneByUserId,
   res.status(200).json(res.locals);
 });
 
-// router.get('/clubs', jwtController.verifyToken, clubController.getClubsByUser, (req, res) => {
+// router.get('/tools', jwtController.verifyToken, toolController.getToolsByUser, (req, res) => {
 //   res.status(200).json(res.locals);
 // });
 
