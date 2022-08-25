@@ -63,6 +63,27 @@ userController.createUser = async (req, res, next) => {
   }
 };
 
+userController.updateUser = async (req, res, next) => {
+  try {
+    const { email, firstName, lastName, city } = req.body;
+
+    const sqlQuery = `
+    INSERT INTO users (first_name, last_name, email, city, password)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING
+    _id, first_name, last_name, email, city`;
+
+    const response = await db.query(sqlQuery, [firstName, lastName, email, city, hashPassword]);
+    res.locals = response.rows[0];
+    return next();
+  } catch (error) {
+    return next({
+      log: `userController.updateUser: ERROR: ${error}`,
+      message: { err: 'userController.updateUser: ERROR: Check server logs for details.' }
+    });
+  }
+};
+
 userController.loginUser = async (req, res, next) => {
   // takes in email and password in request
   // sends query to database to pull all user info for this user
