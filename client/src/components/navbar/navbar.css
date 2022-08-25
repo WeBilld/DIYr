@@ -1,0 +1,81 @@
+.navbarContainer {
+    height: 75px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.navbarLeft {
+    flex: 3;
+}
+
+.logo {
+    font-size: 30px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #ff385c;
+    cursor: pointer;
+}
+
+.navbarCenter {
+    flex: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbarLink {
+    margin: 0 2.5em 0 2.5em;
+    color: #333;
+    cursor: pointer;
+}
+
+.chatIcon {
+    color: #333 !important;
+}
+
+.navbarRight {
+    flex: 3;
+}
+
+.navbarIcons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.navbarIconItem {
+    position: relative;
+}
+
+.navbarIconItem,
+.navbarImg {
+    margin-right: 2em;
+    cursor: pointer;
+}
+
+.navbarIconBadge {
+    width: 15px;
+    height: 15px;
+    font-size: .8em;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbarImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
