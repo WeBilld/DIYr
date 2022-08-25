@@ -2,7 +2,7 @@ const express = require('express');
 const toolController = require('../controllers/toolController');
 const router = express.Router();
 
-// get all users
+// get all tools for a user
 router.get('/:user_id', toolController.getToolsByUser, (req, res) => {
   res.status(200).json(res.locals);
 });

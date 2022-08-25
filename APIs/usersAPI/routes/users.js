@@ -4,9 +4,9 @@ const jwtController = require('../controllers/jwtController');
 const router = express.Router();
 
 // get all users
-router.get('/', (req, res) => {
-  res.status(200).json(res.locals);
-});
+// router.get('/', (req, res) => {
+//   res.status(200).json(res.locals);
+// });
 
 router.post('/signup', userController.checkUser, userController.createUser, jwtController.generateToken, (req, res) => {
   res.status(200).json(res.locals);

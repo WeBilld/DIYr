@@ -66,7 +66,7 @@ toolController.getToolsByCity = async (req, res, next) => {
 
   const city = req.params.city;
 
-  // need to make a call to the users table, to know where the users
+  // LIMIT number of tools returned to 20
   try {
     const getToolsByCity = `
     SELECT
@@ -80,7 +80,8 @@ toolController.getToolsByCity = async (req, res, next) => {
     FROM tools JOIN users
     ON tools.owner_id = users._id
     WHERE
-	  users.city = $1`;
+	  users.city = $1
+    LIMIT 20`;
 
     const response = await db.query(getToolsByCity, [city]);
     res.locals.tools = response.rows;
