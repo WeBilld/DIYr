@@ -1,7 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/userController');
 const jwtController = require('../controllers/jwtController');
-const toolController = require('../controllers/toolController');
 const router = express.Router();
 
 // get all users

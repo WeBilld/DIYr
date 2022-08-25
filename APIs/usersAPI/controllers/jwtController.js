@@ -1,5 +1,4 @@
 const db = require('../models/database');
-const queries = require('../models/queries');
 const jwt = require('jsonwebtoken');
 require('dotenv').config;
 
@@ -9,12 +8,12 @@ const jwtController = {};
 jwtController.generateToken = async (req, res, next) => {
   try {
     const payload = {
-      userName: res.locals.user_name,
       userId: res.locals.user_id
     };
     const options = {
       expiresIn: '3d',
     };
+    // create new jwt token and send it back to client in a cookie, name token access_token
     const token = await jwt.sign(payload, process.env.SECRET_KEY, options);
     res.cookie('access_token', token, {
       httpOnly: true
@@ -36,6 +35,7 @@ jwtController.verifyToken = async (req, res, next) => {
 
     if (!token) return res.status(401).send('No authorization!');
     const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
+    // save userid in request
     req.user = decoded.userId;
     if (decoded) return next();
   } catch (error) {

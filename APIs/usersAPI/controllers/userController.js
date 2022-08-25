@@ -95,4 +95,49 @@ userController.loginUser = async (req, res, next) => {
   }
 };
 
+userController.findOneByUserId = async (req, res, next) => {
+  // req.user is set up in the jwt.verifyToken controller
+  const userId = req.user;
+  try {
+
+    const findUserIdQuery = `
+    SELECT
+	    _id,
+      first_name,
+      last_name,
+      email,
+      city,
+      info,
+      num_supporters,
+      geo_coordinates,
+      created_at
+    FROM
+	    users
+    WHERE
+	    _id = $1`;
+
+    const response = await db.query(findUserIdQuery, [userId]);
+    if (response.rows.length < 1) {
+      throw {
+        log: `User with id: ${userId} could not be found.`,
+        status: 404,
+        message: `User with id: ${userId} could not be found.`,
+      };
+    };
+
+    res.locals = {
+      user_id: response.rows[0]._id,
+      first_name: response.rows[0].first_name,
+      last_name: response.rows[0].last_name,
+    };
+    return next();
+  } catch (error) {
+    return next({
+      log: `userController.findOneByUserId: ERROR: ${error.log}`,
+      message: { err: `${error.message ? error.message : 'userController.findOneByUserId: ERROR: Check server logs for details.'}` },
+      status: error.status ? error.status : 500,
+    });
+  }
+};
+
 module.exports = userController;
