@@ -13,14 +13,22 @@ router.get('/:tool_id', toolController.getToolById, (req, res) => {
   res.status(200).json(res.locals);
 });
 
+// create new tool
 router.put('/', toolController.createNewTool, (req, res) => {
   res.status(200).json(res.locals);
 });
 
+//add like to tool
+router.put('/like/:tool_id', toolController.addLikeToTool, (req, res) => {
+  res.status(200).json(res.locals);
+})
+
+// delete a tool
 router.delete('/:tool_id', toolController.deleteToolById, (req, res) => {
   res.status(200).json(res.locals);
 });
 
+// get tools by city
 router.get('/city/:city', toolController.getToolsByCity, (req, res) => {
   res.status(200).json(res.locals);
 });
