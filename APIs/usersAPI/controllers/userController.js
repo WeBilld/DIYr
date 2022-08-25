@@ -65,15 +65,21 @@ userController.createUser = async (req, res, next) => {
 
 userController.updateUser = async (req, res, next) => {
   try {
-    const { email, firstName, lastName, city } = req.body;
+    const { firstName, lastName, email, city, info, imageUrl } = req.body;
 
-    const sqlQuery = `
-    INSERT INTO users (first_name, last_name, email, city, password)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING
-    _id, first_name, last_name, email, city`;
+    const updateUserQuery = `
+    UPDATE users
+    SET
+    first_name = $1,
+    last_name = $2,
+    email = $3,
+    city = $4,
+    info = $5
+    imageUrl = $6
+    RETURNING *`;
 
-    const response = await db.query(sqlQuery, [firstName, lastName, email, city, hashPassword]);
+    const response = await db.query(updateUserQuery, [firstName, lastName, email,
+      city, info, imageUrl]);
     res.locals = response.rows[0];
     return next();
   } catch (error) {
@@ -105,6 +111,10 @@ userController.loginUser = async (req, res, next) => {
       first_name: response.rows[0].first_name,
       last_name: response.rows[0].last_name,
       city: response.rows[0].city,
+      info: response.rows[0].info,
+      profile_image_url: response.rows[0].profile_image_url,
+      num_supporters: response.rows[0].num_supporters,
+      created_at: response.rows[0].created_at,
     };
     return next();
   }
