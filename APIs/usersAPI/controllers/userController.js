@@ -1,5 +1,4 @@
 const db = require('../models/database');
-const queries = require('../models/queries');
 const bcrypt = require('bcrypt');
 
 const SALT_WORK_FACTOR = 10;
@@ -73,7 +72,7 @@ userController.loginUser = async (req, res, next) => {
     const { email, password } = req.body;
     // if (regex.test(username) || regex.test(password)) throw 'Username and/or password are blank.';
 
-    const loginQuery = queries.loginUser = 'SELECT * FROM users WHERE email = $1';
+    const loginQuery = 'SELECT * FROM users WHERE email = $1';
 
     const response = await db.query(loginQuery, [email]);
     const match = await bcrypt.compare(password, response.rows[0].password);
