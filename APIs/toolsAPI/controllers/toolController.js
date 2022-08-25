@@ -145,4 +145,26 @@ toolController.deleteToolById = async (req, res, next) => {
   }
 };
 
+toolController.addLikeToTool = async (req, res, next) => {
+
+  const toolId = req.params.tool_id;
+  try {
+
+    const addLikeToToolById = `
+    UPDATE tools SET num_likes = num_likes + 1 WHERE _id = $1`;
+
+    const response = await db.query(addLikeToToolById, [toolId]);
+    res.locals.tools = response.rows;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `toolController.addLikeToTool: ERROR: ${error}`,
+      message: {
+        err: 'toolController.addLikeToTool: ERROR: Check server logs for details.',
+      },
+    });
+  }
+};
+
 module.exports = toolController;
