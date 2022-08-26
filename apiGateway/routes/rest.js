@@ -1,15 +1,14 @@
-const { request } = require('express');
 const express = require('express');
 const fetch = require('node-fetch');
 const router = express.Router();
 const registry = require('./registry.json');
 
-router.all('/:apiName/:path', (req, res) => {
+router.all('/:apiName/*', (req, res) => {
   const { url } = registry.services[req.params.apiName];
-  const path = req.params.path;
-  const body = req.body === {} ? req.body : null;
+  const path = req.originalUrl.split('/').splice(3).join('/');
+  const body = JSON.stringify(req.body) === "{}" ? null : JSON.stringify(req.body);
   const { method, headers } = req;
-
+  
   fetch(url + path, {
     method,
     headers,

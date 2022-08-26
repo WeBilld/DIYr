@@ -1,6 +1,4 @@
 const express = require("express");
-const { graphqlHTTP } = require("express-graphql");
-const cors = require("cors");
 const rest = require('./routes/rest');
 const graphql = require('./routes/graphql')
 const PORT = 6000;

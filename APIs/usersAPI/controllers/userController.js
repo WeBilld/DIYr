@@ -43,8 +43,9 @@ userController.createUser = async (req, res, next) => {
   try {
     const { email, password, firstName, lastName, city } = req.body;
     // if (!regex.test(username) || !regex.test(password)) throw 'Username and/or password are blank.';
+    console.log(req.body)
     const hashPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-
+    console.log(hashPassword);
     const sqlQuery = `
     INSERT INTO users (first_name, last_name, email, city, password)
     VALUES ($1, $2, $3, $4, $5)
