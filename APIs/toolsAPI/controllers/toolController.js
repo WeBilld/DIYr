@@ -7,7 +7,7 @@ const toolController = {};
 toolController.getToolsByUser = async (req, res, next) => {
   const token = req.cookies.access_token;
   const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
-  
+
   const userId = decoded.userId;
   try {
 
@@ -105,6 +105,7 @@ toolController.getToolsByCity = async (req, res, next) => {
 toolController.createNewTool = async (req, res, next) => {
 
   const { toolName, ownerId, description, imageUrl, available } = req.body;
+
   try {
 
     const createTool = `
