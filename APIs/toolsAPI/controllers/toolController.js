@@ -100,12 +100,12 @@ toolController.getToolsByCity = async (req, res, next) => {
 
 toolController.createNewTool = async (req, res, next) => {
 
-  const [toolName, ownerId, description, imageUrl, created_at, availability] = req.body;
+  const [toolName, ownerId, description, imageUrl, availability] = req.body;
   try {
 
     const createTool = `
-    INSERT INTO tools (tool_name, owner_id, description, imageUrl, created_at, available)
-    VALUES ($1, $2, $3, $4, $5)
+    INSERT INTO tools (tool_name, owner_id, description, imageUrl, available)
+    VALUES ($1, $2, $3, $4)
     RETURNING *`;
 
     const response = await db.query(createTool, [toolName, ownerId, description,
