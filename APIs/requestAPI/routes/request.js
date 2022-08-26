@@ -2,7 +2,7 @@ const express = require('express');
 const requestController = require('../controllers/requestController');
 const router = express.Router();
 
-// requestto borrow a tool
+// request to borrow a tool
 router.post('/', requestController.requestToolById, (req, res) => {
   res.status(200).json(res.locals);
 });
