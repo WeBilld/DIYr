@@ -4,7 +4,7 @@ const requestController = {};
 
 // add request to database
 requestController.requestToolById = async (req, res, next) => {
-  const [borrower_id, owner_id, tool_id] = req.body;
+  const { borrower_id, owner_id, tool_id } = req.body;
 
   try {
     const requestToolQuery = `
@@ -89,7 +89,7 @@ requestController.getRequestsByBorrower = async (req, res, next) => {
 // add a new transaction to the database
 // update request status in database
 requestController.resolveRequest = async (req, res, next) => {
-  const [requestId, status] = req.body;
+  const { requestId, status } = req.body;
 
   try {
     const resolveRequestQuery = `
