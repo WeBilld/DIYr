@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "",
-    "gateway": "nodemon apiGateway/apiGateway.js & nodemon APIs/usersAPI/server.js & nodemon APIs/toolsAPI/server.js & nodemon APIs/requestAPI/server.js",
+    "gateway": "nodemon apiGateway/apiGateway.js & nodemon APIs/usersAPI/server.js & nodemon APIs/toolsAPI/server.js & nodemon APIs/requestAPI/server.js & nodemon APIs/projectsAPI/server.js",
     "build": " NODE_ENV=production webpack ",
     "dev": "NODE_ENV=development webpack serve --open"
   },
