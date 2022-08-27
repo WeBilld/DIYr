@@ -1,5 +1,4 @@
 const db = require('../models/database');
-const queries = require('../models/queries');
 const bcrypt = require('bcrypt');
 
 const SALT_WORK_FACTOR = 10;
@@ -44,8 +43,9 @@ userController.createUser = async (req, res, next) => {
   try {
     const { email, password, firstName, lastName, city } = req.body;
     // if (!regex.test(username) || !regex.test(password)) throw 'Username and/or password are blank.';
+    console.log(req.body)
     const hashPassword = await bcrypt.hash(password, SALT_WORK_FACTOR);
-
+    console.log(hashPassword);
     const sqlQuery = `
     INSERT INTO users (first_name, last_name, email, city, password)
     VALUES ($1, $2, $3, $4, $5)
@@ -73,7 +73,7 @@ userController.loginUser = async (req, res, next) => {
     const { email, password } = req.body;
     // if (regex.test(username) || regex.test(password)) throw 'Username and/or password are blank.';
 
-    const loginQuery = queries.loginUser = 'SELECT * FROM users WHERE email = $1';
+    const loginQuery = 'SELECT * FROM users WHERE email = $1';
 
     const response = await db.query(loginQuery, [email]);
     const match = await bcrypt.compare(password, response.rows[0].password);
@@ -102,15 +102,7 @@ userController.findOneByUserId = async (req, res, next) => {
 
     const findUserIdQuery = `
     SELECT
-	    _id,
-      first_name,
-      last_name,
-      email,
-      city,
-      info,
-      num_supporters,
-      geo_coordinates,
-      created_at
+	    *
     FROM
 	    users
     WHERE

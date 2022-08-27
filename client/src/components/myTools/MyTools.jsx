@@ -1,7 +1,15 @@
-import '.myTools.css';
+import Tool from '../tool/Tool';
+import './myTools.css';
 
 export default function MyTools() {
     return (
-        <div>MyTools</div>
+        <div className="myToolsContainer">
+            <Tool />
+            <Tool />
+            <Tool />
+            <Tool />
+            <Tool />
+            <Tool />
+        </div>
     )
 }
