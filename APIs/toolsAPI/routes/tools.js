@@ -18,7 +18,12 @@ router.put('/', toolController.createNewTool, (req, res) => {
 });
 
 //add like to tool
-router.put('/like/:tool_id', toolController.addLikeToTool, (req, res) => {
+router.put('/addLike/:tool_id', toolController.addLikeToTool, (req, res) => {
+  res.status(200).json(res.locals);
+})
+
+//remove like from tool
+router.put('/removeLike/:tool_id', toolController.removeLikeFromTool, (req, res) => {
   res.status(200).json(res.locals);
 })
 
