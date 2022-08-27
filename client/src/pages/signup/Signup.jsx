@@ -42,13 +42,13 @@ export default function Login() {
                                 <Stack className="loginFields" direction="column" spacing={3} justifyContent="center" alignItems="center">
                                     <TextField
                                         label="First Name"
-                                        variant="standard"
+                                        variant="outlined"
                                         fullWidth
                                         onChange={handleInputChange('firstName')}
                                     />
                                     <TextField
                                         label="Last Name"
-                                        variant="standard"
+                                        variant="outlined"
                                         fullWidth
                                         onChange={handleInputChange('lastName')}
                                     />
@@ -62,14 +62,14 @@ export default function Login() {
                                     />
                                     <TextField
                                         label="Password"
-                                        variant="standard"
+                                        variant="outlined"
                                         type="password"
                                         fullWidth
                                         onChange={handleInputChange('password')}
                                     />
                                     <TextField
                                         label="Re-enter Password"
-                                        variant="standard"
+                                        variant="outlined"
                                         type="password"
                                         fullWidth
                                         onChange={handleInputChange('repassword')}

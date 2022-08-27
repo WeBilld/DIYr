@@ -35,13 +35,13 @@ export default function Login() {
                                 <Stack className="loginFields" direction="column" spacing={3} justifyContent="center" alignItems="center">
                                     <TextField
                                         label="Email"
-                                        variant="standard"
+                                        variant="outlined"
                                         fullWidth
                                         onChange={handleInputChange('email')}
                                     />
                                     <TextField
                                         label="Password"
-                                        variant="standard"
+                                        variant="outlined"
                                         type="password"
                                         fullWidth
                                         onChange={handleInputChange('password')}
