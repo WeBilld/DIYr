@@ -40,37 +40,16 @@
 
 .navbarRight {
     flex: 3;
-}
-
-.navbarIcons {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 1em;
 }
 
-.navbarIconItem {
+.navbarIcons {
     position: relative;
-}
-
-.navbarIconItem,
-.navbarImg {
+    width: 40px;
     margin-right: 2em;
-    cursor: pointer;
-}
-
-.navbarIconBadge {
-    width: 15px;
-    height: 15px;
-    font-size: .8em;
-    background-color: red;
-    border-radius: 50%;
-    color: white;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .navbarImg {
@@ -78,4 +57,21 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
+    position: relative;
+    cursor: pointer;
+}
+
+.navbarImageBadge {
+    width: 15px;
+    height: 15px;
+    font-size: .8em;
+    background-color: #ff385c;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: -3px;
+    right: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
