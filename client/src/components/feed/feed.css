@@ -1,0 +1,9 @@
+.feedContentContainer {
+    width: 100%;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    overflow-y: auto;
+}

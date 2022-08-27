@@ -1,0 +1,16 @@
+.feedNavbarContainer {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedNavbarLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+    cursor: pointer;
+    color: #333;
+}
