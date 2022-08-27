@@ -6,6 +6,20 @@
       "host": "localhost",
       "port": 3000,
       "url": "http://localhost:3000/users/"
+    },
+    "tools": {
+      "apiName": "tools",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 4000,
+      "url": "http://localhost:4000/tools/"
+    },
+    "requests": {
+      "apiName": "requests",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 5000,
+      "url": "http://localhost:5000/requests/"
     }
   }
 }

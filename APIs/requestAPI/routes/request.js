@@ -3,6 +3,7 @@ const requestController = require('../controllers/requestController');
 const requestRouter = express.Router();
 
 // request to borrow a tool
+
 requestRouter.post('/', requestController.requestToolById, (req, res) => {
   res.status(200).json(res.locals);
 });
@@ -14,7 +15,7 @@ requestRouter.get(
   // retrieve ALL requests plus borrower info
   requestController.getRequestsByOwner,
   // retrieve total number of unresolved requests only
-  getNumUnresolvedRequests,
+  requestController.getNumUnresolvedRequests,
   (req, res) => {
     res.status(200).json(res.locals);
   }

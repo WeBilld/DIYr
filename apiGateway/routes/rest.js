@@ -14,7 +14,10 @@ router.all('/:apiName/*', (req, res) => {
     headers,
     body,
   })
-    .then(response => response.json())
+    .then(response => {
+      res.setHeader('set-cookie', response.headers.get('set-cookie'));
+      return response.json()
+    })
     .then(data => res.send(data))
     .catch(error => console.log(error))
 });

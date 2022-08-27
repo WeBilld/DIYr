@@ -1,13 +1,15 @@
 const express = require("express");
 const rest = require('./routes/rest');
-const graphql = require('./routes/graphql')
+const cookieParser = require('cookie-parser');
+// const graphql = require('./routes/graphql')
 const PORT = 6000;
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/rest', rest);
-app.use('/graphql', graphql);
+// app.use('/graphql', graphql);
 
 app.use((req, res) => res.sendStatus(404));
 

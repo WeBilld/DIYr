@@ -102,15 +102,7 @@ userController.findOneByUserId = async (req, res, next) => {
 
     const findUserIdQuery = `
     SELECT
-	    _id,
-      first_name,
-      last_name,
-      email,
-      city,
-      info,
-      num_supporters,
-      geo_coordinates,
-      created_at
+	    *
     FROM
 	    users
     WHERE
