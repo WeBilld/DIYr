@@ -4,7 +4,7 @@ const path = require('path');
 const transactionsRouter = require('./routes/transactions');
 
 const app = express();
-const PORT = 3003;
+const PORT = 2500;
 
 /*
 1. app.use(express.json()) is used to parse JSON data sent by the client to the server.
