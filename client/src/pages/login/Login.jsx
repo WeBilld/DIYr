@@ -18,7 +18,8 @@ export default function Login() {
     }
 
     // onClick for login to submit to our auth api
-    
+    // display an error on bad request
+
 
     return (
         <div className="loginMain">
