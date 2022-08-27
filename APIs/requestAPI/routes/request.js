@@ -3,9 +3,9 @@ const requestController = require('../controllers/requestController');
 const router = express.Router();
 
 // request to borrow a tool
-router.post('/', requestController.requestToolById, (req, res) => {
-  res.status(200).json(res.locals);
-});
+// router.post('/', requestController.requestToolById, (req, res) => {
+//   res.status(200).json(res.locals);
+// });
 
 // retrieve requests by owner id
 router.get('/:owner_id', requestController.getRequestsByOwner, (req, res) => {

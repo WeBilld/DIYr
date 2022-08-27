@@ -110,3 +110,5 @@ requestController.resolveRequest = async (req, res, next) => {
     });
   }
 };
+
+module.exports = requestController;
