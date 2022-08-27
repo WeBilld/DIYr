@@ -28,6 +28,22 @@
     cursor: pointer;
 }
 
+.followSeparator {
+    margin: 0px 10px 0px 10px;
+}
+
+.follow {
+    color: rgb(0, 149, 246);
+    font-size: .8em;
+    cursor: pointer;
+}
+
+.following {
+    color: #3eb489;
+    font-size: .8em;
+    cursor: pointer;
+}
+
 .postImage {
     width: 100%;
 }
