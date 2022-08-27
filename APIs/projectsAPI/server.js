@@ -1,7 +1,7 @@
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
-const db = require('../models/database');
+const db = require('./models/database');
 
 const {
   GraphQLSchema,
@@ -64,8 +64,8 @@ const RootQueryType = new GraphQLObjectType({
           WHERE u._id = $1
           ORDER BY p.created_at DESC`;
           let response = await db.query(getUserProjectsQuery, [user_id]);
-          console.log(` response of the getUserProjectsQuery is`, response.rows);
-          return response.rows[0];
+          // console.log(`response of the getUserProjectsQuery is :`, response.rows);
+          return response.rows;
         }
         catch (error) {
           return `projectsController.getUserProjects: ERROR: ${error}`;
@@ -79,7 +79,7 @@ const RootQueryType = new GraphQLObjectType({
         user_id: { type: GraphQLNonNull(GraphQLInt) },
         city: { type: GraphQLNonNull(GraphQLString) }
       },
-      resolve: async (parent, { city }) => {
+      resolve: async (parent, { user_id, city }) => {
         try {
           let getLocalProjectsQuery = `
           SELECT p.*, u.city, u.first_name, u.last_name, u.email,
@@ -88,7 +88,7 @@ const RootQueryType = new GraphQLObjectType({
           WHERE u.city = $2 ORDER BY p.created_at;`;
           let response = await db.query(getLocalProjectsQuery, [user_id, city]);
           console.log(`response of the getLocalProjectsQuery is`, response.rows);
-          return response.rows[0];
+          return response.rows;
         }
         catch (error) {
           return `projectsController.getLocalProjects: ERROR: ${error}`;
@@ -101,7 +101,7 @@ const RootQueryType = new GraphQLObjectType({
       args: {
         user_id: { type: GraphQLNonNull(GraphQLInt) },
       },
-      resolve: async (parent, { city }) => {
+      resolve: async (parent, { user_id }) => {
         try {
           let getFolloweesProjectsQuery = `
           SELECT p.*, u.city, u.first_name, u.last_name, u.email,
@@ -114,7 +114,7 @@ const RootQueryType = new GraphQLObjectType({
           ORDER BY p.created_at DESC`;
           let response = await db.query(getFolloweesProjectsQuery, [user_id]);
           console.log(`response of the getFolloweesProjectsQuery is`, response.rows);
-          return response.rows[0];
+          return response.rows;
         }
         catch (error) {
           return `projectsController.getFolloweesProjects: ERROR: ${error}`;
