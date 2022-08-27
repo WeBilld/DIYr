@@ -30,19 +30,16 @@ requestController.requestToolById = async (req, res, next) => {
   }
 };
 
-// retrieve requests using owner id
+// retrieve requests and borrower info using owner id
 requestController.getRequestsByOwner = async (req, res, next) => {
   const ownerId = req.params.owner_id;
 
   try {
     const getRequestsByOwnerQuery = `
-        SELECT
-        requests._id as requestId
-        requests.borrower_id as borrowerId
-        requests.tool_id as toolId
-        requests.created_at as createdAt
+        SELECT *
         FROM requests
-        WHERE requests.owner_id = $1 AND requests.status = 'pending'`;
+        JOIN users ON requests.borrower_id=users._id
+        WHERE requests.owner_id = $1`;
 
     const response = await db.query(getRequestsByOwnerQuery, [ownerId]);
     res.locals.requests = response.rows;
@@ -53,6 +50,30 @@ requestController.getRequestsByOwner = async (req, res, next) => {
       log: `requestController.getRequestsByOwner: ERROR: ${error}`,
       message: {
         err: 'requestController.getRequestsByOwner: ERROR: Check server logs for details.'
+      }
+    });
+  }
+};
+
+// retrieve the number of unresolved requests using owner id
+requestController.getNumUnresolvedRequests = async (req, res, next) => {
+  const ownerId = req.params.owner_id;
+
+  try {
+    const getNumUnresolvedRequestsQuery = `
+        SELECT requests._id
+        FROM requests
+        WHERE requests.owner_id = $1 AND requests.status='pending'`;
+
+    const response = await db.query(getNumUnresolvedRequestsQuery, [ownerId]);
+    res.locals.numUnresolvedRequests = response.rows.length;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `requestController.getNumUnresolvedRequests: ERROR: ${error}`,
+      message: {
+        err: 'requestController.getNumUnresolvedRequests: ERROR: Check server logs for details.'
       }
     });
   }

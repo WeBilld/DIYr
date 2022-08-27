@@ -8,9 +8,13 @@ requestRouter.post('/', requestController.requestToolById, (req, res) => {
 });
 
 // retrieve requests by owner id
+// retrieve the number of unresolved requests using owner id
 requestRouter.get(
   '/:owner_id',
+  // retrieve ALL requests plus borrower info
   requestController.getRequestsByOwner,
+  // retrieve total number of unresolved requests only
+  getNumUnresolvedRequests,
   (req, res) => {
     res.status(200).json(res.locals);
   }
