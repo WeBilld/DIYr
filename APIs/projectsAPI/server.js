@@ -24,9 +24,9 @@ app.use(cors());
 
 //---------------Custom Types----------------
 
-const ProjectType = new GraphQLObjectType({
-  name: "Project",
-  description: "List of project details",
+const GetProjectType = new GraphQLObjectType({
+  name: "GetProject",
+  description: "List of project details from get requests",
   fields: () => ({
     _id: { type: GraphQLInt },
     owner_id: { type: GraphQLString },
@@ -42,6 +42,17 @@ const ProjectType = new GraphQLObjectType({
   }),
 });
 
+const CreateProjectType = new GraphQLObjectType({
+  name: "CreateProject",
+  description: "List of project details from post request",
+  fields: () => ({
+    _id: { type: GraphQLInt },
+    owner_id: { type: GraphQLString },
+    description: { type: GraphQLString },
+    image_url: { type: GraphQLString }
+  }),
+});
+
 //---------------Root Query Types----------------
 
 const RootQueryType = new GraphQLObjectType({
@@ -49,7 +60,7 @@ const RootQueryType = new GraphQLObjectType({
   description: "Root Query",
   fields: () => ({
     getUserProjects: {
-      type: new GraphQLList(ProjectType),
+      type: new GraphQLList(GetProjectType),
       description: "get all projects for a user",
       args: {
         user_id: { type: GraphQLNonNull(GraphQLInt) }
@@ -73,7 +84,7 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     getLocalProjects: {
-      type: new GraphQLList(ProjectType),
+      type: new GraphQLList(GetProjectType),
       description: "get all projects from a city",
       args: {
         user_id: { type: GraphQLNonNull(GraphQLInt) },
@@ -91,12 +102,12 @@ const RootQueryType = new GraphQLObjectType({
           return response.rows;
         }
         catch (error) {
-          return `projectsController.getLocalProjects: ERROR: ${error}`;
+          return `projectsAPI.getLocalProjects: ERROR: ${error}`;
         }
       }
     },
     getFolloweesProjects: {
-      type: new GraphQLList(ProjectType),
+      type: new GraphQLList(GetProjectType),
       description: "get all projects from a person the user follows",
       args: {
         user_id: { type: GraphQLNonNull(GraphQLInt) },
@@ -117,7 +128,7 @@ const RootQueryType = new GraphQLObjectType({
           return response.rows;
         }
         catch (error) {
-          return `projectsController.getFolloweesProjects: ERROR: ${error}`;
+          return `projectsAPI.getFolloweesProjects: ERROR: ${error}`;
         }
       }
     }
@@ -125,9 +136,52 @@ const RootQueryType = new GraphQLObjectType({
   })
 })
 
+//---------------Root Mutation Types----------------
+
+const RootMutationType = new GraphQLObjectType({
+  name: "Mutation",
+  description: "Root Mutation",
+  fields: () => ({
+    createProject: {
+      type: GraphQLString,
+      description: "create new project",
+      args: {
+        user_id: { type: GraphQLNonNull(GraphQLInt) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+        image_url: { type: GraphQLString },
+      },
+      resolve: async (parent, { user_id, description, image_url }) => {
+        try {
+          if (!image_url) {
+            let createProjectQuery = `
+            INSERT INTO projects (owner_id, description)
+            VALUES ($1, $2)
+            RETURNING
+            _id, owner_id, description;`;
+            let response = await db.query(createProjectQuery, [user_id, description]);
+            return `Project successfully created without image_url added`;
+
+          } else {
+            let createProjectQuery = `
+            INSERT INTO projects (owner_id, description, image_url)
+            VALUES ($1, $2, $3)
+            RETURNING
+            _id, owner_id, description, image_url;`;
+            let response = await db.query(createProjectQuery, [user_id, description, image_url]);
+            return `Project successfully created`;
+          }
+        }
+        catch (error) {
+          return `projectsAPI.createProject: ERROR: ${error.message}`;
+        }
+      }
+    },
+  })
+})
+
 const schema = new GraphQLSchema({
   query: RootQueryType,
-  // mutation:
+  mutation: RootMutationType
 });
 
 app.use(

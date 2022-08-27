@@ -3,7 +3,6 @@ const toolController = require('../controllers/toolController');
 const router = express.Router();
 
 // get all tools for a user
-
 router.get('/user', toolController.getToolsByUser, (req, res) => {
   res.status(200).json(res.locals);
 });
@@ -20,6 +19,11 @@ router.put('/', toolController.createNewTool, (req, res) => {
 
 //add like to tool
 router.put('/like/:tool_id', toolController.addLikeToTool, (req, res) => {
+  res.status(200).json(res.locals);
+})
+
+//change status of tool to available/unavailable
+router.put('/available/:tool_id', toolController.changeToolAvailability, (req, res) => {
   res.status(200).json(res.locals);
 })
 
