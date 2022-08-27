@@ -1,10 +1,14 @@
 const db = require('../models/database');
+const jwt = require('jsonwebtoken');
+require('dotenv').config;
 
 const toolController = {};
 
 toolController.getToolsByUser = async (req, res, next) => {
-
-  const userId = req.params.user_id;
+  const token = req.cookies.access_token;
+  const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
+  
+  const userId = decoded.userId;
   try {
 
     const getToolsByUserQuery = `
@@ -100,16 +104,16 @@ toolController.getToolsByCity = async (req, res, next) => {
 
 toolController.createNewTool = async (req, res, next) => {
 
-  const [toolName, ownerId, description, imageUrl, created_at, availability] = req.body;
+  const { toolName, ownerId, description, imageUrl, available } = req.body;
   try {
 
     const createTool = `
-    INSERT INTO tools (tool_name, owner_id, description, imageUrl, created_at, available)
+    INSERT INTO tools (tool_name, owner_id, description, image_url, available)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
 
     const response = await db.query(createTool, [toolName, ownerId, description,
-      imageUrl, created_at, availability]);
+      imageUrl, available]);
     res.locals.tools = response.rows;
 
     return next();
