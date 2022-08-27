@@ -86,7 +86,6 @@ requestController.getRequestsByBorrower = async (req, res, next) => {
   }
 };
 
-// add a new transaction to the database
 // update request status in database
 requestController.resolveRequest = async (req, res, next) => {
   const { requestId, status } = req.body;
@@ -110,3 +109,5 @@ requestController.resolveRequest = async (req, res, next) => {
     });
   }
 };
+
+module.exports = requestController;

@@ -1,19 +1,23 @@
 const express = require('express');
 const requestController = require('../controllers/requestController');
-const router = express.Router();
+const requestRouter = express.Router();
 
 // request to borrow a tool
-router.post('/', requestController.requestToolById, (req, res) => {
+requestRouter.post('/', requestController.requestToolById, (req, res) => {
   res.status(200).json(res.locals);
 });
 
 // retrieve requests by owner id
-router.get('/:owner_id', requestController.getRequestsByOwner, (req, res) => {
-  res.status(200).json(res.locals);
-});
+requestRouter.get(
+  '/:owner_id',
+  requestController.getRequestsByOwner,
+  (req, res) => {
+    res.status(200).json(res.locals);
+  }
+);
 
 // retrieve requests by borrower id
-router.get(
+requestRouter.get(
   '/:borrower_id',
   requestController.getRequestsByBorrower,
   (req, res) => {
@@ -22,8 +26,8 @@ router.get(
 );
 
 // approve or reject a request for your tool
-router.put('/', requestController.resolveRequest, (req, res) => {
+requestRouter.put('/', requestController.resolveRequest, (req, res) => {
   res.status(200).json(res.locals);
 });
 
-module.exports = router;
+module.exports = requestRouter;
