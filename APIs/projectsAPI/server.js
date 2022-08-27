@@ -42,17 +42,6 @@ const GetProjectType = new GraphQLObjectType({
   }),
 });
 
-const CreateProjectType = new GraphQLObjectType({
-  name: "CreateProject",
-  description: "List of project details from post request",
-  fields: () => ({
-    _id: { type: GraphQLInt },
-    owner_id: { type: GraphQLString },
-    description: { type: GraphQLString },
-    image_url: { type: GraphQLString }
-  }),
-});
-
 //---------------Root Query Types----------------
 
 const RootQueryType = new GraphQLObjectType({
