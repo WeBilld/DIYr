@@ -163,4 +163,16 @@ userController.findOneByUserId = async (req, res, next) => {
   }
 };
 
+// follow user by id
+userController.followUser = async (req, res, next) => {};
+
+// unfollow user by id
+userController.unfollowUser = async (req, res, next) => {};
+
+// retrieve all users followed by a particular user
+userController.getFollowees = async (req, res, next) => {};
+
+// retrieve all of a particular user's followers
+userController.getFollowers = async (req, res, next) => {};
+
 module.exports = userController;
