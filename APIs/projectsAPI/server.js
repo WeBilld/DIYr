@@ -39,6 +39,7 @@ const GetProjectType = new GraphQLObjectType({
     last_name: { type: GraphQLString },
     email: { type: GraphQLString },
     liked_by_user: { type: GraphQLBoolean },
+    followed_by_user: { type: GraphQLBoolean }
   }),
 });
 
@@ -58,7 +59,8 @@ const RootQueryType = new GraphQLObjectType({
         try {
           let getUserProjectsQuery = `
           SELECT p.*, u.city, u.first_name, u.last_name, u.email,
-          EXISTS (SELECT * FROM likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user
+          EXISTS (SELECT * FROM project_likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user,
+          EXISTS (SELECT * FROM followee_follower f WHERE f.follower_id = u._id AND p.owner_id = f.followee_id) AS followed_by_user
           FROM PROJECTS AS p JOIN USERS AS u
           ON p.owner_id = u._id
           WHERE u._id = $1
@@ -83,7 +85,8 @@ const RootQueryType = new GraphQLObjectType({
         try {
           let getLocalProjectsQuery = `
           SELECT p.*, u.city, u.first_name, u.last_name, u.email,
-          EXISTS (SELECT * FROM likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user
+          EXISTS (SELECT * FROM project_likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user,
+          EXISTS (SELECT * FROM followee_follower f WHERE f.follower_id = u._id AND p.owner_id = f.followee_id) AS followed_by_user
           FROM projects p INNER JOIN users u ON p.owner_id = u._id
           WHERE u.city = $2 ORDER BY p.created_at;`;
           let response = await db.query(getLocalProjectsQuery, [user_id, city]);
@@ -105,7 +108,8 @@ const RootQueryType = new GraphQLObjectType({
         try {
           let getFolloweesProjectsQuery = `
           SELECT p.*, u.city, u.first_name, u.last_name, u.email,
-          EXISTS (SELECT * FROM likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user
+          EXISTS (SELECT * FROM project_likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user,
+          EXISTS (SELECT * FROM followee_follower f WHERE f.follower_id = u._id AND p.owner_id = f.followee_id) AS followed_by_user
           FROM PROJECTS p
           INNER JOIN users u ON p.owner_id = u._id
           WHERE p.owner_id IN (
