@@ -4,31 +4,44 @@ const router = express.Router();
 const registry = require('./registry.json');
 const crossFetch = require('cross-fetch');
 const jwt = require('jsonwebtoken');
-require('dotenv').config;
 const { ApolloClient, InMemoryCache, ApolloProvider, gql, HttpLink } = require('@apollo/client');
+require('dotenv').config();
 
 router.all('/graphql/*', async (req, res) => {
   const { url } = registry.services.graphql;
   const path = req.originalUrl.split('/').splice(3).join('/');
 
   const token = req.cookies.access_token;
-  const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
+  const decoded = await jwt.verify(token, process.env.SECRET_KEY);
   const userId = decoded.userId;
 
+
   let parameter, queryType, queryString;
-  switch(path) {
+  switch (path) {
     case "getUserProjects":
       queryType = "query";
-      parameter = `user_id: ${userId}`
+      parameter = `user_id: ${userId}`;
+      queryString = `${req.body.queryString}`;
       break;
     case "getLocalProjects":
       queryType = "query";
-      parameter = `user_id: ${userId}, city: `
+      parameter = `user_id: ${userId}, city: "${req.body.city}"`;
+      queryString = `${req.body.queryString}`;
+      break;
+    case "getFolloweesProjects":
+      queryType = "query";
+      parameter = `user_id: ${userId}`;
+      queryString = `${req.body.queryString}`;
       break;
     case "createProject":
       queryType = "mutation";
+      parameter = `
+      user_id: ${userId}, 
+      description: "${req.body.description}",
+      image_url: "${req.body.image_url}"
+      `;
       break;
-  } 
+  }
 
   const client = new ApolloClient({
     link: new HttpLink({ uri: url, fetch: crossFetch }),
@@ -37,15 +50,15 @@ router.all('/graphql/*', async (req, res) => {
 
   response = client.query({
     query: gql`
-        ${queryType} all {
+        ${queryType} {
           ${path} (${parameter}) {
-            _id, owner_id, description, image_url, num_likes, created_at, city, first_name,
-    last_name, email, liked_by_user, followed_by_user
+            ${queryString}
           }
         }
       `
   })
-    .then(data => console.log(data))
+    .then(response => res.send(response.data))
+    .catch(error => console.log(error))
 });
 
 router.all('/:apiName/*', (req, res) => {
