@@ -243,9 +243,51 @@ userController.unfollowUser = async (req, res, next) => {
 };
 
 // retrieve all users followed by a particular user
-userController.getFollowees = async (req, res, next) => {};
+userController.getFollowees = async (req, res, next) => {
+  const { followerId } = req.body;
+
+  try {
+    const getFolloweesQuery = `
+    SELECT followee_id
+    FROM followee_follower
+    WHERE follower_id = $1`;
+
+    const response = await db.query(getFolloweesQuery, [followerId]);
+    res.locals.followees = response.rows;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `userController.getFollowees: ERROR: ${error}`,
+      message: {
+        err: 'userController.getFollowees: ERROR: Check server logs for details.'
+      }
+    });
+  }
+};
 
 // retrieve all of a particular user's followers
-userController.getFollowers = async (req, res, next) => {};
+userController.getFollowers = async (req, res, next) => {
+  const { followeeId } = req.body;
+
+  try {
+    const getFollowersQuery = `
+    SELECT follower_id
+    FROM followee_follower
+    WHERE followee_id = $1`;
+
+    const response = await db.query(getFollowersQuery, [followeeId]);
+    res.locals.followers = response.rows;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `userController.getFollowers: ERROR: ${error}`,
+      message: {
+        err: 'userController.getFollowers: ERROR: Check server logs for details.'
+      }
+    });
+  }
+};
 
 module.exports = userController;
