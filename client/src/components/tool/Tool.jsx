@@ -31,7 +31,8 @@ export default function Tool() {
                     <p className="toolInfoValue"><CloseIcon color="error" /></p>
                 </div>
                 <div className="requestButtonWrapper">
-                    <Button variant='text' color='success' className='requestButton'>Request Tool</Button>
+                    <Button variant='outlined' color='success' className='requestButton' disabled>Request Tool</Button>
+                    {/* <Button variant='outlined' color='success' className='requestButton'>Request Tool</Button> */}
                 </div>
             </div>
         </div>
