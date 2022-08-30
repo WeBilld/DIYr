@@ -1,6 +1,6 @@
 const db = require('../models/database');
 
-const transactionController = {};
+const transactionsController = {};
 
 // retrieve all transactions for tools owned by a particular user
 transactionsController.getTransactionsByOwner = async (req, res, next) => {
@@ -9,11 +9,7 @@ transactionsController.getTransactionsByOwner = async (req, res, next) => {
   try {
     const getTransactionsByOwnerQuery = `
             SELECT
-            transactions._id as requestId
-            transactions.borrower_id as borrowerId
-            transactions.tool_id as toolId
-            transactions.created_at as createdAt
-            transactions.completed at completed
+            *
             FROM transactions
             WHERE transactions.owner_id = $1`;
 
@@ -38,11 +34,7 @@ transactionsController.getTransactionsByBorrower = async (req, res, next) => {
   try {
     const getTransactionsByBorrowerQuery = `
             SELECT
-            transactions._id as requestId
-            transactions.owner_id as ownerId
-            transactions.tool_id as toolId
-            transactions.created_at as createdAt
-            transactions.completed at completed
+            *
             FROM transactions
             WHERE transactions.borrower_id = $1`;
 
@@ -69,11 +61,7 @@ transactionsController.getTransactionsByTool = async (req, res, next) => {
   try {
     const getTransactionsByToolQuery = `
               SELECT
-              transactions._id as requestId
-              transactions.owner_id as ownerId
-              transactions.borrower_id as borrowerId
-              transactions.created_at as createdAt
-              transactions.completed at completed
+              *
               FROM transactions
               WHERE transactions.tool_id = $1`;
 
@@ -92,7 +80,7 @@ transactionsController.getTransactionsByTool = async (req, res, next) => {
 };
 
 // add a transaction when a request is approved
-transactionController.openTransaction = async (req, res, next) => {
+transactionsController.openTransaction = async (req, res, next) => {
   const { borrower_id, owner_id, tool_id } = req.body;
 
   try {
@@ -120,7 +108,7 @@ transactionController.openTransaction = async (req, res, next) => {
 };
 
 // update transaction status when item is returned
-transactionController.closeTransaction = async (req, res, next) => {
+transactionsController.closeTransaction = async (req, res, next) => {
   const { transactionId } = req.body;
 
   try {
