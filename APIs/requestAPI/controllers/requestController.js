@@ -39,6 +39,7 @@ requestController.getRequestsByOwner = async (req, res, next) => {
         SELECT *
         FROM requests
         JOIN users ON requests.borrower_id=users._id
+        JOIN tools ON requests.tool_id=tools._id
         WHERE requests.owner_id = $1`;
 
     const response = await db.query(getRequestsByOwnerQuery, [ownerId]);
