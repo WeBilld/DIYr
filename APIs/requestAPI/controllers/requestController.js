@@ -86,10 +86,7 @@ requestController.getRequestsByBorrower = async (req, res, next) => {
   try {
     const getRequestsByBorrowerQuery = `
           SELECT
-          requests._id as requestId
-          requests.owner_id as ownerId
-          requests.tool_id as toolId
-          requests.created_at as createdAt
+          *
           FROM requests
           WHERE requests.borrower_id = $1 AND requests.status = 'pending'`;
 
