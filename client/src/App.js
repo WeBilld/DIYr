@@ -10,14 +10,15 @@ export default function App() {
 
   return (
     <BrowserRouter>
-        <Navbar />
-        <Routes>
-            <Route path='/' element={<Signup />}></Route>
-            <Route path='/profile' element={<Profile />}></Route>
-            <Route path='/profile/:id' element={<Profile />}></Route>
-            {/* <Profile /> */}
-            {/* <Home /> */}
-        </Routes>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Signup />}></Route>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/profile' element={<Profile />}></Route>
+        <Route path='/profile/:id' element={<Profile />}></Route>
+        {/* <Profile /> */}
+        {/* <Home /> */}
+      </Routes>
     </BrowserRouter>
 
   )
