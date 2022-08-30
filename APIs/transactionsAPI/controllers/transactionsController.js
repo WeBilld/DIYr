@@ -113,9 +113,9 @@ transactionsController.closeTransaction = async (req, res, next) => {
 
   try {
     const closeTransactionQuery = `
-            UPDATE transactions
-            SET completed = TRUE
-            WHERE _id = $1`;
+    UPDATE transactions
+    SET completed = TRUE
+    WHERE _id = $1`;
 
     const response = await db.query(closeTransactionQuery, [transactionId]);
     res.locals.request = response.rows;
