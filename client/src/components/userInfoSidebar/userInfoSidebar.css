@@ -62,3 +62,7 @@
 #editButton:hover {
     background-color: rgba(255, 56, 92, .1);
 }
+
+#signoutButton {
+    color: #555 !important;
+}
