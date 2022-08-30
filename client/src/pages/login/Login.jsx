@@ -19,6 +19,17 @@ export default function Login() {
 
     // onClick for login to submit to our auth api
     // display an error on bad request
+    // const submitInputs = () => {
+    //     // build req body
+
+
+    //     // send request
+    //     fetch('http://localhost:6000/users/login', {
+    //         method: 'POST',
+
+    //     })
+    // }
+
 
 
     return (

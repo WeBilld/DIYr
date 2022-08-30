@@ -14,8 +14,11 @@ export default function Login() {
         city: '',
         email: '',
         password: '',
-        repassword: ''
+        repassword: '',
+        passError: false,
+        emailError: false
     });
+
 
     const cityList =['Albuquerque', 'Arlington', 'Atlanta', 'Austin', 'Bakersfield', 'Baltimore', 'Boston', 'Charlotte', 'Chicago', 'Colorado Springs', 'Columbus', 'Dallas', 'Denver', 'Detroit', 'El Paso', 'Fort Worth', 'Fresno', 'Houston', 'Indianapolis', 'Jacksonville', 'Kansas City', 'Las Vegas', 'Long Beach', 'Los Angeles', 'Louisville', 'Memphis', 'Mesa', 'Miami', 'Milwaukee', 'Minneapolis', 'Nashville', 'New York City', 'Oakland', 'Oklahoma City', 'Omaha', 'Philadelphia', 'Phoenix', 'Portland', 'Raleigh', 'Sacramento', 'San Antonio', 'San Diego', 'San Francisco', 'San Jose', 'Seattle', 'Tucson', 'Tulsa', 'Virgnia Beach', 'Washington DC', 'Wichita'];
 
@@ -24,9 +27,17 @@ export default function Login() {
         setInputs({...inputs, [prop]: e.target.value});
     }
 
-    // onClick for login to submit to our createuser api
+    // onClick to submit to our createuser api
     // display an error on bad request
+    const submitInputs = () => {
+        // check if second password matches, if not error
 
+        // if email already exists in db, error
+
+        // build form
+
+        // submit request
+    }
 
     return (
         <div className="signupMain">
