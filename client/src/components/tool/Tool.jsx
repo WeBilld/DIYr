@@ -1,7 +1,9 @@
 import './tool.css';
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Button } from '@mui/material';
 
 export default function Tool() {
     return (
@@ -25,7 +27,11 @@ export default function Tool() {
                 </div>
                 <div className="toolInfoItem">
                     <p className="toolInfoType">Available:</p>
-                    <p className="toolInfoValue"><CheckIcon color="success" /></p>
+                    {/* <p className="toolInfoValue"><CheckIcon color="success" /></p> */}
+                    <p className="toolInfoValue"><CloseIcon color="error" /></p>
+                </div>
+                <div className="requestButtonWrapper">
+                    <Button variant='text' color='success' className='requestButton'>Request Tool</Button>
                 </div>
             </div>
         </div>
