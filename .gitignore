@@ -38,6 +38,7 @@ bower_components
 build/Release
 
 # Dependency directories
+<<<<<<< HEAD
 node_modules/
 */node_modules
 jspm_packages/
@@ -103,3 +104,9 @@ dist
 
 # TernJS port file
 .tern-port
+||||||| constructed merge base
+node_modules/
+=======
+node_modules/
+.env
+>>>>>>> added addLikeToTool route to tools API
