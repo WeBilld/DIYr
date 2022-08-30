@@ -12,9 +12,9 @@ router.all('/graphql/*', async (req, res) => {
   const path = req.originalUrl.split('/').splice(3).join('/');
 
   const token = req.cookies.access_token;
-  const decoded = await jwt.verify(token, process.env.SECRET_KEY);
-  const userId = decoded.userId;
-
+  // const decoded = await jwt.verify(token, process.env.SECRET_KEY);
+  // const userId = decoded.userId;
+  const userId = 7;
 
   let parameter, queryType, queryString;
   switch (path) {
@@ -36,7 +36,7 @@ router.all('/graphql/*', async (req, res) => {
     case "createProject":
       queryType = "mutation";
       parameter = `
-      user_id: ${userId}, 
+      user_id: ${userId},
       description: "${req.body.description}",
       image_url: "${req.body.image_url}"
       `;

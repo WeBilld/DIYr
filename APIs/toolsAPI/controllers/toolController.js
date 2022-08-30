@@ -5,10 +5,10 @@ require('dotenv').config;
 const toolController = {};
 
 toolController.getToolsByUser = async (req, res, next) => {
-  const token = req.cookies.access_token;
-  const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
+  // const token = req.cookies.access_token;
+  // const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
 
-  const userId = decoded.userId;
+  const userId = 7;
   try {
 
     const getToolsByUserQuery = `
