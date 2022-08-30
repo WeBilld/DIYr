@@ -1,0 +1,17 @@
+.loginMain {
+    min-height: 100vh;
+    background-image: url('/client/src/pages/login/assets/diy-tools\ background-blur-dark.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.bigLogo {
+    font-size: 200px;
+    font-weight: bold;
+    color: #ff385c;
+}
+
+.inputsContainer {
+    background: rgba(255, 255, 255, 0.507);
+}

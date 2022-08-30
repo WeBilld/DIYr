@@ -1,10 +1,14 @@
 const db = require('../models/database');
+const jwt = require('jsonwebtoken');
+require('dotenv').config;
 
 const toolController = {};
 
 toolController.getToolsByUser = async (req, res, next) => {
+  const token = req.cookies.access_token;
+  const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
 
-  const userId = req.params.user_id;
+  const userId = decoded.userId;
   try {
 
     const getToolsByUserQuery = `
@@ -100,16 +104,17 @@ toolController.getToolsByCity = async (req, res, next) => {
 
 toolController.createNewTool = async (req, res, next) => {
 
-  const [toolName, ownerId, description, imageUrl, created_at, availability] = req.body;
+  const { toolName, ownerId, description, imageUrl, available } = req.body;
+
   try {
 
     const createTool = `
-    INSERT INTO tools (tool_name, owner_id, description, imageUrl, created_at, available)
+    INSERT INTO tools (tool_name, owner_id, description, image_url, available)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
 
     const response = await db.query(createTool, [toolName, ownerId, description,
-      imageUrl, created_at, availability]);
+      imageUrl, available]);
     res.locals.tools = response.rows;
 
     return next();
@@ -140,6 +145,87 @@ toolController.deleteToolById = async (req, res, next) => {
       log: `toolController.deleteToolById: ERROR: ${error}`,
       message: {
         err: 'toolController.deleteToolById: ERROR: Check server logs for details.',
+      },
+    });
+  }
+};
+
+toolController.addLikeToTool = async (req, res, next) => {
+  // be sure to add the user_id in the request body!
+  const toolId = req.params.tool_id;
+  const { userId } = req.body
+  try {
+
+    const addLikeToToolById = `
+    UPDATE tools SET num_likes = num_likes + 1 WHERE _id = $1`;
+
+    const response = await db.query(addLikeToToolById, [toolId]);
+
+    const addToolLikeQuery = `
+    INSERT INTO tool_likes (tool_id, user_id)
+    VALUES ($1, $2)`;
+
+    const response2 = await db.query(addToolLikeQuery, [toolId, userId]);
+
+    res.locals.tools = response.rows;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `toolController.addLikeToTool: ERROR: ${error}`,
+      message: {
+        err: 'toolController.addLikeToTool: ERROR: Check server logs for details.',
+      },
+    });
+  }
+};
+
+toolController.removeLikeFromTool = async (req, res, next) => {
+  // be sure to add the user_id in the request body!
+  const toolId = req.params.tool_id;
+  const { userId } = req.body
+  try {
+
+    const subtractLikeFromToolById = `
+    UPDATE tools SET num_likes = num_likes - 1 WHERE _id = $1`;
+
+    const response = await db.query(subtractLikeFromToolById, [toolId]);
+
+    const removeToolLikeQuery = `
+    DELETE from tool_likes WHERE tool_id = $1 AND user_id = $2 RETURNING *`;
+
+    const response2 = await db.query(removeToolLikeQuery, [toolId, userId]);
+
+    res.locals.tools = response.rows;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `toolController.removeLikeFromTool: ERROR: ${error}`,
+      message: {
+        err: 'toolController.removeLikeFromTool: ERROR: Check server logs for details.',
+      },
+    });
+  }
+};
+
+toolController.changeToolAvailability = async (req, res, next) => {
+
+  const toolId = req.params.tool_id;
+  try {
+
+    const changeToolAvailabilityQuery = `
+    UPDATE tools SET available = NOT available WHERE _id = $1`;
+
+    const response = await db.query(changeToolAvailabilityQuery, [toolId]);
+    res.locals.tools = response.rows;
+
+    return next();
+  } catch (error) {
+    return next({
+      log: `toolController.changeToolAvailability: ERROR: ${error}`,
+      message: {
+        err: 'toolController.changeToolAvailability: ERROR: Check server logs for details.',
       },
     });
   }
