@@ -45,9 +45,17 @@
     flex: 3;
 }
 
-#editButton {
-    align-self: flex-end;
+.buttonWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 2em;
+    width: 100%;
+}
+
+#editButton {
+    /* align-self: flex-end; */
+    /* margin-top: 2em; */
     color: #ff385c;
 }
 
