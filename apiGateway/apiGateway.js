@@ -2,9 +2,11 @@ const express = require("express");
 const rest = require('./routes/rest');
 const cookieParser = require('cookie-parser');
 // const graphql = require('./routes/graphql')
-const PORT = 6000;
+const PORT = 5500;
 const app = express();
+const cors = require('cors')
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

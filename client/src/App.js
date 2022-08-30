@@ -12,7 +12,8 @@ export default function App() {
     <BrowserRouter>
         <Navbar />
         <Routes>
-            <Route path='/' element={<Signup />}></Route>
+            <Route path='/' element={<Login />}></Route>
+            <Route path = '/signup' element={<Signup/>}></Route>
             <Route path='/profile' element={<Profile />}></Route>
             <Route path='/profile/:id' element={<Profile />}></Route>
             {/* <Profile /> */}
