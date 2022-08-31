@@ -1,6 +1,9 @@
 .userInfoSidebar {
-    flex: 1;
+    /* flex: 1; */
+    display: inline;
     padding: 73px 10px 0px 10px;
+    max-width: 18%;
+    min-width: 300px;
 }
 
 .sidebarWrapper {
@@ -43,26 +46,4 @@
 
 .infoAnswer {
     flex: 3;
-}
-
-.buttonWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2em;
-    width: 100%;
-}
-
-#editButton {
-    /* align-self: flex-end; */
-    /* margin-top: 2em; */
-    color: #ff385c;
-}
-
-#editButton:hover {
-    background-color: rgba(255, 56, 92, .1);
-}
-
-#signoutButton {
-    color: #555 !important;
 }

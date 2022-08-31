@@ -49,3 +49,16 @@
     flex: 2;
     font-size: .8em;
 }
+
+.requestButtonWrapper {
+    margin-top: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requestButton {
+    width: 100%;
+    margin: 10px !important;
+}

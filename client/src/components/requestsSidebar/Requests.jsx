@@ -12,7 +12,7 @@ export default function Requests() {
             })
     }, [])
 
-    const requestList = requests?.requests?.map((el,i) => <Request key={i} data={el}/>);
+    const requestList = requests?.requests?.map((el, i) => <Request key={i} data={el} />);
 
     return (
         <div className='requestsContainer'>
@@ -23,7 +23,6 @@ export default function Requests() {
             </div>
             <div className="requestsWrapper">
                 {requestList}
-            
             </div>
         </div>
     )

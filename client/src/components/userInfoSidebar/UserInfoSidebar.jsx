@@ -19,7 +19,10 @@ export default function UserInfoSidebar() {
                         <p className="infoCategory">About Me: </p>
                         <p className='infoAnswer'>I love building and restoring furniture! Feel free to follow me and see what I'm up to.</p>
                     </div>
-                    <Button variant="text" id="editButton">Edit Profile</Button>
+                    <div className="buttonWrapper">
+                        <Button variant="text" id="signoutButton">Signout</Button>
+                        <Button variant="text" id="editButton">Edit Profile</Button>
+                    </div>
                 </div>
             </div>
         </div>
