@@ -1,6 +1,5 @@
 const express = require("express");
 const rest = require('./routes/rest');
-const cors = require("cors");
 const cookieParser = require('cookie-parser');
 // const graphql = require('./routes/graphql')
 const cors = require("cors");
