@@ -6,6 +6,7 @@ import Profile from './pages/profile/Profile'
 import Signup from './pages/signup/Signup.jsx'
 import Login from './pages/login/Login.jsx'
 import OthersProfile from "./pages/othersProfile/OthersProfile";
+import Feed from './components/feed/Feed'
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
         <Route path='/' element={<Signup />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/profile/:id' element={<Profile />}></Route>
+        <Route path='/posts' element={<Feed />}></Route>
         {/* <Profile /> */}
         {/* <Home /> */}
       </Routes>
