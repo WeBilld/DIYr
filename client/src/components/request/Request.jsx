@@ -1,9 +1,9 @@
 import { Button } from '@mui/material';
 import './request.css';
 
-export default function Request({ data }) {
+export default function Request({ data, updateRequestsState }) {
     const handleAccept = () => {
-        console.log(data);
+        console.log(data._id);
         fetch('http://localhost:5500/rest/request/', {
             method: 'PUT',
             credentials: 'include', // Don't forget to specify this if you need cookies
@@ -16,6 +16,7 @@ export default function Request({ data }) {
                 "status": "approved"
             })
         })
+            .then(res => updateRequestsState(data._id, 'approved'))
             .catch(error => console.log(error));
         console.log("approved");
     };
@@ -33,6 +34,7 @@ export default function Request({ data }) {
                 "status": "denied"
             })
         })
+            .then(res => updateRequestsState(data._id, 'denied'))
             .catch(error => console.log(error));
     }
     return (

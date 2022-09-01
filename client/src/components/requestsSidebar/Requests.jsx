@@ -12,9 +12,23 @@ export default function Requests() {
             .then(data => {
                 setRequests(data);
             })
-    }, [])
+    }, []);
 
-    const requestList = requests?.requests?.map((el, i) => <Request key={i} data={el} />);
+    const updateRequestsState = (requestId, status) => {
+        console.log(requests.requests.map(request => {
+            if (request._id === requestId) return { ...request, status }
+            else return request;
+        }));
+
+        setRequests({
+            requests: requests.requests.map(request => {
+                if (request._id === requestId) return { ...request, status }
+                else return request;
+            })
+        });
+    }
+
+    const requestList = requests?.requests?.map((el, i) => <Request key={i} data={el} updateRequestsState={updateRequestsState} />);
 
     return (
         <div className='requestsContainer'>
