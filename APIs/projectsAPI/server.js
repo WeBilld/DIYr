@@ -91,7 +91,6 @@ const RootQueryType = new GraphQLObjectType({
           FROM projects p INNER JOIN users u ON p.owner_id = u._id
           WHERE u.city = $2 ORDER BY p.created_at;`;
           let response = await db.query(getLocalProjectsQuery, [user_id, city]);
-          console.log(`response of the getLocalProjectsQuery is`, response.rows);
           return response.rows;
         }
         catch (error) {
@@ -118,7 +117,6 @@ const RootQueryType = new GraphQLObjectType({
             WHERE f.follower_id = $1)
           ORDER BY p.created_at DESC`;
           let response = await db.query(getFolloweesProjectsQuery, [user_id]);
-          console.log(`response of the getFolloweesProjectsQuery is`, response.rows);
           return response.rows;
         }
         catch (error) {
