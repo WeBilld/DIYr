@@ -32,11 +32,11 @@ jwtController.generateToken = async (req, res, next) => {
 jwtController.verifyToken = async (req, res, next) => {
   try {
     const token = req.cookies.access_token;
-
-    if (!token) return res.status(401).send('No authorization!');
+    console.log(token);
+    if (!token) return res.status(401).json({error: 'No authorization!'});
     const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
     // save userid in request
-    req.user = decoded.userId;
+    res.locals.userID = decoded.userId;
     if (decoded) return next();
   } catch (error) {
     return next({

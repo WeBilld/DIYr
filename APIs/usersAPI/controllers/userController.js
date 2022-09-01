@@ -76,7 +76,7 @@ userController.createUser = async (req, res, next) => {
 userController.updateUser = async (req, res, next) => {
   try {
     const { firstName, lastName, email, city, info, imageUrl } = req.body;
-    const userId = req.user;
+    const userId = res.locals.userID;
 
     const updateUserQuery = `
     UPDATE users
@@ -153,7 +153,7 @@ userController.loginUser = async (req, res, next) => {
 
 userController.findOneByUserId = async (req, res, next) => {
   // req.user is set up in the jwt.verifyToken controller
-  const userId = req.user;
+  const userId = res.locals.userID;
   try {
     const findUserIdQuery = `
     SELECT
@@ -174,8 +174,14 @@ userController.findOneByUserId = async (req, res, next) => {
 
     res.locals = {
       user_id: response.rows[0]._id,
+      email: response.rows[0].email,
       first_name: response.rows[0].first_name,
-      last_name: response.rows[0].last_name
+      last_name: response.rows[0].last_name,
+      city: response.rows[0].city,
+      info: response.rows[0].info,
+      profile_image_url: response.rows[0].profile_image_url,
+      num_supporters: response.rows[0].num_supporters,
+      created_at: response.rows[0].created_at
     };
     return next();
   } catch (error) {

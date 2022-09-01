@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
 
-import  UserContext from '../../Contexts/UserContext';
+import UserContext from '../../Contexts/UserContext';
 import { Navigate } from 'react-router-dom';
 
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
         password: ''
     });
 
-    const {setUserInfo, userInfo} = useContext(UserContext);
+    const { setUserInfo, userInfo } = useContext(UserContext);
     // console.log(userInfo)
 
 
@@ -35,7 +35,7 @@ export default function Login() {
 
     // onClick for login to submit to our user api
     // display an error on bad request
-    
+
     const submitLogin = () => {
         // build body form
         const formBody = {
@@ -46,15 +46,17 @@ export default function Login() {
         fetch('http://localhost:5500/rest/users/login', {
             method: 'POST',
             body: JSON.stringify(formBody),
+            credentials: 'include', // Don't forget to specify this if you need cookies
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
         })
-        .then (res => res.json())
-        .then (res => {
-            setUserInfo({
-                ...res
-            })
+            .then(res => res.json())
+            .then(res => {
+                setUserInfo({
+                    ...res
+                })
             })
     }
 

@@ -3,6 +3,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const usersRouter = require('./routes/users');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,11 @@ const PORT = 3000;
 2. app.use(express.urlencoded({ extended: true })) is used to parse the form data sent by the client to the server.
 3. app.use(cookieParser()) is used to parse cookies sent by the client to the server.
 */
+app.use(cors({
+  origin: ["http://localhost:8080", 'http://localhost:5500'],
+ //update: or "origin: true," if you don't wanna add a specific one
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

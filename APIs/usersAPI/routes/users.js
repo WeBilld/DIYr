@@ -33,7 +33,7 @@ router.get(
   jwtController.verifyToken,
   userController.findOneByUserId,
   (req, res) => {
-    res.status(200).json(res.locals);
+    return res.status(200).json(res.locals);
   }
 );
 
