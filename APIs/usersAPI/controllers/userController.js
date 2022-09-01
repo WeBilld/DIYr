@@ -76,6 +76,7 @@ userController.createUser = async (req, res, next) => {
 userController.updateUser = async (req, res, next) => {
   try {
     const { firstName, lastName, email, city, info, imageUrl } = req.body;
+    const userId = req.user;
 
     const updateUserQuery = `
     UPDATE users
@@ -84,8 +85,9 @@ userController.updateUser = async (req, res, next) => {
     last_name = $2,
     email = $3,
     city = $4,
-    info = $5
+    info = $5,
     imageUrl = $6
+    WHERE _id = $7
     RETURNING *`;
 
     const response = await db.query(updateUserQuery, [
@@ -94,7 +96,8 @@ userController.updateUser = async (req, res, next) => {
       email,
       city,
       info,
-      imageUrl
+      imageUrl,
+      userId
     ]);
     res.locals = response.rows[0];
     return next();
@@ -179,11 +182,10 @@ userController.findOneByUserId = async (req, res, next) => {
     return next({
       log: `userController.findOneByUserId: ERROR: ${error.log}`,
       message: {
-        err: `${
-          error.message
+        err: `${error.message
             ? error.message
             : 'userController.findOneByUserId: ERROR: Check server logs for details.'
-        }`
+          }`
       },
       status: error.status ? error.status : 500
     });
