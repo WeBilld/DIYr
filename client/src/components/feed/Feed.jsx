@@ -23,6 +23,7 @@ export default function Feed() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.getLocalProjects);
         setProjects(data.getLocalProjects);
       })
       .catch((err) => console.warn(err));
