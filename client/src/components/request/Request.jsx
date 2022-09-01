@@ -3,15 +3,19 @@ import './request.css';
 
 export default function Request({ data }) {
     const handleAccept = () => {
-        console.log(data._id);
+        console.log(data);
         fetch('http://localhost:5500/rest/request/', {
             method: 'PUT',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify({
                 "requestId": data._id,
                 "status": "approved"
             })
         })
-            .then()
             .catch(error => console.log(error));
         console.log("approved");
     };
@@ -19,12 +23,16 @@ export default function Request({ data }) {
         console.log("denied");
         fetch('http://localhost:5500/rest/request/', {
             method: 'PUT',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify({
                 "requestId": data._id,
                 "status": "denied"
             })
         })
-            .then()
             .catch(error => console.log(error));
     }
     return (
