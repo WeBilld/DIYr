@@ -1,0 +1,7 @@
+.otherUsersProfileContentsContainer {
+    min-width: 56%;
+    max-width: 500px;
+    margin-left: 2em;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

@@ -9,33 +9,33 @@ require('dotenv').config();
 
 router.all('/graphql/*', async (req, res) => {
   const { url } = registry.services.graphql;
-  const path = req.originalUrl.split('/').splice(3).join('/');
+  const operationName = req.originalUrl.split('/').splice(3).join('/');
 
   const token = req.cookies.access_token;
   const decoded = await jwt.verify(token, process.env.SECRET_KEY);
   const userId = decoded.userId;
 
 
-  let parameter, queryType, queryString;
-  switch (path) {
+  let args, operationType, queryString;
+  switch (operationName) {
     case "getUserProjects":
-      queryType = "query";
-      parameter = `user_id: ${userId}`;
+      operationType = "query";
+      args = `user_id: ${userId}`;
       queryString = `${req.body.queryString}`;
       break;
     case "getLocalProjects":
-      queryType = "query";
-      parameter = `user_id: ${userId}, city: "${req.body.city}"`;
+      operationType = "query";
+      args = `user_id: ${userId}, city: "${req.body.city}"`;
       queryString = `${req.body.queryString}`;
       break;
     case "getFolloweesProjects":
-      queryType = "query";
-      parameter = `user_id: ${userId}`;
+      operationType = "query";
+      args = `user_id: ${userId}`;
       queryString = `${req.body.queryString}`;
       break;
     case "createProject":
-      queryType = "mutation";
-      parameter = `
+      operationType = "mutation";
+      args = `
       user_id: ${userId}, 
       description: "${req.body.description}",
       image_url: "${req.body.image_url}"
@@ -50,8 +50,8 @@ router.all('/graphql/*', async (req, res) => {
 
   response = client.query({
     query: gql`
-        ${queryType} {
-          ${path} (${parameter}) {
+        ${operationType} {
+          ${operationName} (${args}) {
             ${queryString}
           }
         }
