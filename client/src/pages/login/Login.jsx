@@ -1,16 +1,32 @@
 import './login.css';
-import React, { Component, useEffect } from 'react'
+import React, { Component, useEffect, useContext } from 'react'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom'
+
+import  UserContext from '../../Contexts/UserContext';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
     const [inputs, setInputs] = React.useState({
         email: '',
         password: ''
     });
+
+    const {setUserInfo, userInfo} = useContext(UserContext);
+    // console.log(userInfo)
+
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userInfo.user_id) {
+            navigate('/home')
+        }
+    })
 
     // handle change of inputs
     const handleInputChange = (prop) => (e) => {
@@ -19,21 +35,30 @@ export default function Login() {
 
     // onClick for login to submit to our user api
     // display an error on bad request
-
+    
     const submitLogin = () => {
         // build body form
         const formBody = {
             email: inputs.email,
             password: inputs.password
         };
-
         // submit values from field to our rest/login route
         fetch('http://localhost:5500/rest/users/login', {
             method: 'POST',
             body: JSON.stringify(formBody),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then (res => console.log(res))
+        .then (res => res.json())
+        .then (res => {
+            setUserInfo({
+                ...res
+            })
+            })
     }
+
+
 
 
 
