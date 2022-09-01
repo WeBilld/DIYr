@@ -12,9 +12,9 @@ router.all('/graphql/*', async (req, res) => {
   const operationName = req.originalUrl.split('/').splice(3).join('/');
 
   const token = req.cookies.access_token;
-  // const decoded = await jwt.verify(token, process.env.SECRET_KEY);
-  // const userId = decoded.userId;
-  const userId = 7;
+  console.log('this is the token', token);
+  const decoded = await jwt.verify(token, process.env.SECRET_KEY);
+  const userId = decoded.userId;
 
   let args, operationType, queryString;
   switch (operationName) {

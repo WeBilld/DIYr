@@ -27,6 +27,11 @@ export default function Post({
     "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80";
   let lastPhoto =
     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGd1eXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60";
+
+  const handleLike = (event) => {
+    console.log('tried to like!');
+  }
+
   return (
     <div className="postContainer">
       <div className="creatorInfoWrapper">
@@ -45,7 +50,7 @@ export default function Post({
           {liked_by_user ? (
             <FavoriteIcon className="postLikeIcon" />
           ) : (
-            <FavoriteBorderIcon className="postLikeIcon" />
+            <FavoriteBorderIcon className="postLikeIcon" onClick={handleLike} />
           )}
           <p className="numLikes">{num_likes} Likes</p>
         </div>

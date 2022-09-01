@@ -11,7 +11,6 @@ export default function MyTools() {
       method: "GET",
       credentials: 'include', // Don't forget to specify this if you need cookies
       headers: {
-        //   Authorization: `Bearer ${auth.token}`,
         "Content-Type": "application/json",
         'Accept': 'application/json'
       },
