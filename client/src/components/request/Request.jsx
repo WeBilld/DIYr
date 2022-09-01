@@ -11,7 +11,8 @@ export default function Request({ data }) {
                 "status": "approved"
             })
         })
-        .then()
+            .then()
+            .catch(error => console.log(error));
         console.log("approved");
     };
     const handleReject = () => {
@@ -23,7 +24,8 @@ export default function Request({ data }) {
                 "status": "denied"
             })
         })
-        .then()
+            .then()
+            .catch(error => console.log(error));
     }
     return (
         <div className="requestContainer">
