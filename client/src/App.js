@@ -41,9 +41,9 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
-        <Route path='/home' element={<Home />}></Route>
-        <Route path='/profile' element={<Profile />}></Route>
-        <Route path='/profile/:id' element={<OthersProfile />}></Route>
+        <Route path='/home' element={userInfo.user_id ? <Home /> : <Login/>}></Route>
+        <Route path='/profile' element={userInfo.user_id ? <Profile /> : <Login/>}></Route>
+        <Route path='/profile/:id' element={userInfo.user_id ? <OthersProfile /> : <Login />}></Route>
         {/* <Profile /> */}
         {/* <Home /> */}
       </Routes>
