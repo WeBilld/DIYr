@@ -9,9 +9,11 @@ export default function MyTools() {
   useEffect(() => {
     fetch(`http://localhost:5500/rest/tools/user`, {
       method: "GET",
+      credentials: 'include', // Don't forget to specify this if you need cookies
       headers: {
         //   Authorization: `Bearer ${auth.token}`,
         "Content-Type": "application/json",
+        'Accept': 'application/json'
       },
     })
       .then((response) => response.json())
