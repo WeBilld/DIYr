@@ -6,16 +6,18 @@ const toolController = {};
 
 toolController.getToolsByUser = async (req, res, next) => {
   const token = req.cookies.access_token;
-  const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
+  const decoded = await jwt.verify(token, process.env.SECRET_KEY, {
+    maxAge: '3d'
+  });
 
   const userId = decoded.userId;
   try {
-
     const getToolsByUserQuery = `
     SELECT
 	  tools._id as toolId,
 	  tools.tool_name as toolName,
 	  tools.description as description
+    tools.available as available
     FROM tools
     WHERE
 	  tools.owner_id = $1`;
@@ -28,17 +30,15 @@ toolController.getToolsByUser = async (req, res, next) => {
     return next({
       log: `toolController.getToolsByUser: ERROR: ${error}`,
       message: {
-        err: 'toolController.getToolsByUser: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.getToolsByUser: ERROR: Check server logs for details.'
+      }
     });
   }
 };
 
 toolController.getToolById = async (req, res, next) => {
-
   const toolId = req.params.tool_id;
   try {
-
     const getToolsById = `
     SELECT
 	  tools._id as toolId,
@@ -60,14 +60,13 @@ toolController.getToolById = async (req, res, next) => {
     return next({
       log: `toolController.getToolById: ERROR: ${error}`,
       message: {
-        err: 'toolController.getToolById: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.getToolById: ERROR: Check server logs for details.'
+      }
     });
   }
 };
 
 toolController.getToolsByCity = async (req, res, next) => {
-
   const city = req.params.city;
 
   // LIMIT number of tools returned to 20
@@ -95,26 +94,28 @@ toolController.getToolsByCity = async (req, res, next) => {
     return next({
       log: `toolController.getToolByCity: ERROR: ${error}`,
       message: {
-        err: 'toolController.getToolByCity: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.getToolByCity: ERROR: Check server logs for details.'
+      }
     });
   }
 };
 
-
 toolController.createNewTool = async (req, res, next) => {
-
   const { toolName, ownerId, description, imageUrl, available } = req.body;
 
   try {
-
     const createTool = `
     INSERT INTO tools (tool_name, owner_id, description, image_url, available)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *`;
 
-    const response = await db.query(createTool, [toolName, ownerId, description,
-      imageUrl, available]);
+    const response = await db.query(createTool, [
+      toolName,
+      ownerId,
+      description,
+      imageUrl,
+      available
+    ]);
     res.locals.tools = response.rows;
 
     return next();
@@ -122,17 +123,15 @@ toolController.createNewTool = async (req, res, next) => {
     return next({
       log: `toolController.createNewTool: ERROR: ${error}`,
       message: {
-        err: 'toolController.createNewTool: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.createNewTool: ERROR: Check server logs for details.'
+      }
     });
   }
 };
 
 toolController.deleteToolById = async (req, res, next) => {
-
   const toolId = req.params.tool_id;
   try {
-
     const deleteToolById = `
     DELETE from tools WHERE _id = $1 RETURNING *`;
 
@@ -144,8 +143,8 @@ toolController.deleteToolById = async (req, res, next) => {
     return next({
       log: `toolController.deleteToolById: ERROR: ${error}`,
       message: {
-        err: 'toolController.deleteToolById: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.deleteToolById: ERROR: Check server logs for details.'
+      }
     });
   }
 };
@@ -153,9 +152,8 @@ toolController.deleteToolById = async (req, res, next) => {
 toolController.addLikeToTool = async (req, res, next) => {
   // be sure to add the user_id in the request body!
   const toolId = req.params.tool_id;
-  const { userId } = req.body
+  const { userId } = req.body;
   try {
-
     const addLikeToToolById = `
     UPDATE tools SET num_likes = num_likes + 1 WHERE _id = $1`;
 
@@ -174,8 +172,8 @@ toolController.addLikeToTool = async (req, res, next) => {
     return next({
       log: `toolController.addLikeToTool: ERROR: ${error}`,
       message: {
-        err: 'toolController.addLikeToTool: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.addLikeToTool: ERROR: Check server logs for details.'
+      }
     });
   }
 };
@@ -183,9 +181,8 @@ toolController.addLikeToTool = async (req, res, next) => {
 toolController.removeLikeFromTool = async (req, res, next) => {
   // be sure to add the user_id in the request body!
   const toolId = req.params.tool_id;
-  const { userId } = req.body
+  const { userId } = req.body;
   try {
-
     const subtractLikeFromToolById = `
     UPDATE tools SET num_likes = num_likes - 1 WHERE _id = $1`;
 
@@ -203,17 +200,15 @@ toolController.removeLikeFromTool = async (req, res, next) => {
     return next({
       log: `toolController.removeLikeFromTool: ERROR: ${error}`,
       message: {
-        err: 'toolController.removeLikeFromTool: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.removeLikeFromTool: ERROR: Check server logs for details.'
+      }
     });
   }
 };
 
 toolController.changeToolAvailability = async (req, res, next) => {
-
   const toolId = req.params.tool_id;
   try {
-
     const changeToolAvailabilityQuery = `
     UPDATE tools SET available = NOT available WHERE _id = $1`;
 
@@ -225,8 +220,8 @@ toolController.changeToolAvailability = async (req, res, next) => {
     return next({
       log: `toolController.changeToolAvailability: ERROR: ${error}`,
       message: {
-        err: 'toolController.changeToolAvailability: ERROR: Check server logs for details.',
-      },
+        err: 'toolController.changeToolAvailability: ERROR: Check server logs for details.'
+      }
     });
   }
 };

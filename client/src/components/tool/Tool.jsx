@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Button } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import database from '../../../../APIs/toolsAPI/models/database';
 
 export default function Tool() {
     const params = useParams();
@@ -25,12 +26,12 @@ export default function Tool() {
                 </div>
                 <div className="toolInfoItem">
                     <p className="toolInfoType">Desc:</p>
-                    <p className="toolInfoValue">Wonderfully sharp hatchet! Cuts through anything. *whisper* aaaanything</p>
+                    <p className="toolInfoValue">{database.description}</p>
                 </div>
                 <div className="toolInfoItem">
                     <p className="toolInfoType">Available:</p>
                     {/* <p className="toolInfoValue"><CheckIcon color="success" /></p> */}
-                    <p className="toolInfoValue"><CloseIcon color="error" /></p>
+                    <p className="toolInfoValue"><CloseIcon color="error" />{data.available ? 'Available' : 'Not available'}</p>
                 </div>
                 <div className="requestButtonWrapper">
                     <Button variant='outlined' color='success' className='requestButton' disabled>Request Tool</Button>
