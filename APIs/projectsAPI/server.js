@@ -169,6 +169,29 @@ const RootMutationType = new GraphQLObjectType({
         }
       }
     },
+    likeProject: {
+      type: GraphQLString,
+      description: 'Like another users project',
+      args: {
+        user_id: { type: GraphQLNonNull(GraphQLInt) },
+        project_id: { type: GraphQLNonNull(GraphQLInt) }
+      },
+      resolve: async (parent, {user_id, project_id}) => {
+        try {
+          console.log('in the query type');
+          const addLikeToJoinTableQuery = `
+            INSERT INTO project_likes (project_id, user_id)
+            VALUES ($1, $2);
+          `;
+  
+          const response = await db.query(addLikeToJoinTableQuery, [project_id, user_id]);
+
+          return `Project successfully liked!`;
+        } catch (error) {
+          return `projectsAPI.likeProject: ERROR: ${error.message}`;
+        }
+      }
+    }
   })
 })
 

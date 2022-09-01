@@ -33,6 +33,7 @@ export default function Feed() {
     <div className="feedContentContainer">
       {projects.map((p, idx) => (
         <Post
+          project_id={p._id}
           first_name={p.first_name}
           last_name={p.last_name}
           created_at={p.created_at}
