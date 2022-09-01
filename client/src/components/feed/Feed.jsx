@@ -9,7 +9,7 @@ export default function Feed() {
 
   useEffect(() => {
     const body = {
-      queryString: `_id, owner_id, description, image_url, num_likes, created_at, city, first_name, last_name, email, liked_by_user, followed_by_user`,
+      queryString: `_id, owner_id, description, image_url, num_likes, created_at, city, first_name, last_name, email, liked_by_user, followed_by_user, profile_image_url`,
       city: "Los Angeles",
     };
 
@@ -42,6 +42,7 @@ export default function Feed() {
           description={p.description}
           image_url={p.image_url}
           liked_by_user={p.liked_by_user}
+          profile_image_url={p.profile_image_url}
           key={idx}
         />
       ))}

@@ -29,7 +29,6 @@ export default function App() {
         <Route path='/home' element={<Home />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
         <Route path='/profile/:id' element={<OthersProfile />}></Route>
-        <Route path='/posts' element={<Feed />}></Route>
         {/* <Profile /> */}
         {/* <Home /> */}
       </Routes>

@@ -12,6 +12,7 @@ export default function Post({
   description,
   image_url,
   liked_by_user,
+  profile_image_url,
 }) {
   let today = new Date();
   let createdDate = new Date(created_at * 1);
@@ -24,11 +25,12 @@ export default function Post({
   let imageSrc = image_url === "project.png" ? stockPhotoUrl : image_url;
   let creatorPhoto =
     "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80";
-
+  let lastPhoto =
+    "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGd1eXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60";
   return (
     <div className="postContainer">
       <div className="creatorInfoWrapper">
-        <img src={creatorPhoto} alt="" className="creatorImage" />
+        <img src={profile_image_url} alt="" className="creatorImage" />
         <p className="creatorName">{first_name + " " + last_name}</p>
         <span className="followSeparator">&#8226;</span>
         {followed_by_user ? (
