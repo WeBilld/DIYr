@@ -12,10 +12,7 @@ toolController.getToolsByUser = async (req, res, next) => {
   try {
 
     const getToolsByUserQuery = `
-    SELECT
-	  tools._id as toolId,
-	  tools.tool_name as toolName,
-	  tools.description as description
+    SELECT *
     FROM tools
     WHERE
 	  tools.owner_id = $1`;
