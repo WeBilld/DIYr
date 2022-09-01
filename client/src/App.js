@@ -28,14 +28,8 @@ export default function App() {
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/home' element={<Home />}></Route>
         <Route path='/profile' element={<Profile />}></Route>
-<<<<<<< HEAD
         <Route path='/profile/:id' element={<OthersProfile />}></Route>
-||||||| constructed merge base
-        <Route path='/profile/:id' element={<Profile />}></Route>
-=======
-        <Route path='/profile/:id' element={<Profile />}></Route>
         <Route path='/posts' element={<Feed />}></Route>
->>>>>>> set up get request in feed and posts components, component now renders data from backend
         {/* <Profile /> */}
         {/* <Home /> */}
       </Routes>
