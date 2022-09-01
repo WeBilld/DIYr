@@ -43,7 +43,7 @@ export default function Request({ data, updateRequestsState }) {
                 <img src={data.image_url} alt="" className="toolImage" />
                 <div className="statusWrapper">
                     <p>Status:</p>
-                    <p className="statusValue">{data.status}</p>
+                    <p className={data.status}>{data.status}</p>
                 </div>
             </div>
             <div className="requestInfoWrapper">

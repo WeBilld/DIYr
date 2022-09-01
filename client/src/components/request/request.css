@@ -26,9 +26,23 @@
     align-items: center;
 }
 
-.statusValue {
+.pending,
+.approved,
+.denied {
     margin-left: 5px;
+    /* color: rgb(153, 0, 153); */
+}
+
+.pending {
     color: rgb(153, 0, 153);
+}
+
+.approved {
+    color: green;
+}
+
+.denied {
+    color: tomato;
 }
 
 .requestInfoWrapper {
