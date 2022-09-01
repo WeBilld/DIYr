@@ -10,10 +10,9 @@ export default function Feed() {
   useEffect(() => {
     const body = {
       queryString: `_id, owner_id, description, image_url, num_likes, created_at, city, first_name, last_name, email, liked_by_user, followed_by_user, profile_image_url`,
-      city: "Los Angeles",
     };
 
-    fetch(`http://localhost:5500/rest/graphql/getLocalProjects`, {
+    fetch(`http://localhost:5500/rest/graphql/getFolloweesProjects`, {
       method: "POST",
       headers: {
         //   Authorization: `Bearer ${auth.token}`,
@@ -23,8 +22,8 @@ export default function Feed() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.getLocalProjects);
-        setProjects(data.getLocalProjects);
+        console.log(data.getFolloweesProjects);
+        setProjects(data.getFolloweesProjects);
       })
       .catch((err) => console.warn(err));
   }, [projects.length]);
