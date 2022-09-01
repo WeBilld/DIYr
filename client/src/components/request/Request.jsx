@@ -54,8 +54,12 @@ export default function Request({ data }) {
                 <p className="postedText">53 minutes ago</p>
             </div>
             <div className="requestButtons">
-                <Button className='acceptButton' variant='contained' onClick={handleAccept}>Accept</Button>
-                <Button className='rejectButton' variant='outlined' onClick={handleReject}>Reject</Button>
+                {data.status === 'pending' && (
+                    <>
+                        <Button className='acceptButton' variant='contained' onClick={handleAccept}>Accept</Button>
+                        <Button className='rejectButton' variant='outlined' onClick={handleReject}>Reject</Button>
+                    </>
+                )}
             </div>
         </div>
     )
