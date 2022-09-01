@@ -5,6 +5,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../../Contexts/UserContext";
 
 export default function Tool({
   tool_name,
@@ -16,15 +18,17 @@ export default function Tool({
   created_at,
   key,
 }) {
-  const params = useParams();
+  const { userInfo } = useContext(UserContext);
+
   return (
     <div className="toolContainer">
       <img src={image_url} alt="" className="toolImg" />
-      {key % 2 === 0 ? (
+      {userInfo.user_id !== owner_id ? key % 2 === 0 ? <FavoriteBorderIcon className="likeIcon" /> : <FavoriteIcon className="likeIcon" /> : null}
+      {/* {key % 2 === 0 ? (
         <FavoriteBorderIcon className="likeIcon" />
       ) : (
         <FavoriteIcon className="likeIcon" />
-      )}
+      )} */}
 
       <p className="toolType">{tool_name}</p>
       <div className="toolInfo">

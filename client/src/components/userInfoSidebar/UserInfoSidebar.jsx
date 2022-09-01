@@ -4,7 +4,6 @@ import UserContext from '../../Contexts/UserContext';
 import './userInfoSidebar.css';
 
 export default function UserInfoSidebar() {
-    //const { userInfo, setUserInfo } = useContext(UserContext)
     const { userInfo } = useContext(UserContext);
     return (
         <div className="userInfoSidebar">
