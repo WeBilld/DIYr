@@ -17,7 +17,7 @@ export default function Tool({
   available,
   num_likes,
   created_at,
-  key,
+  index,
   changeToolAvailabilityState
 }) {
   const { userInfo } = useContext(UserContext);
@@ -57,8 +57,8 @@ export default function Tool({
   return (
     <div className="toolContainer">
       <img src={image_url} alt="" className="toolImg" />
-      {userInfo.user_id !== owner_id ? key % 2 === 0 ? <FavoriteBorderIcon className="likeIcon" /> : <FavoriteIcon className="likeIcon" /> : null}
-      {/* {key % 2 === 0 ? (
+      {userInfo.user_id !== owner_id ? index % 2 === 0 ? <FavoriteBorderIcon className="likeIcon" /> : <FavoriteIcon className="likeIcon" /> : null}
+      {/* {index % 2 === 0 ? (
         <FavoriteBorderIcon className="likeIcon" />
       ) : (
         <FavoriteIcon className="likeIcon" />

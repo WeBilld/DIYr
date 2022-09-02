@@ -43,6 +43,7 @@ export default function MyTools() {
           num_likes={t.num_likes}
           created_at={t.created_at}
           key={idx}
+          index={idx}
         />
       ))}
     </div>
