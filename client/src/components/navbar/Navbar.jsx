@@ -1,8 +1,14 @@
 import "./navbar.css";
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import Home from "../../pages/home/Home";
+import UserContext from '../../Contexts/UserContext';
 
 export default function Navbar() {
+
+  const {userInfo} = useContext(UserContext);
+  const nameDisplay = `Hello ${userInfo.first_name}!`
+
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -17,7 +23,7 @@ export default function Navbar() {
         <span className="navbarLink">Tools</span>
       </div>
       <div className="navbarRight">
-        <p className="navbarGreeting">Hello, Javan!</p>
+        <p className="navbarGreeting">{nameDisplay}</p>
         <div className="navbarIcons">
           <Link to="/profile">
             <img

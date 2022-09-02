@@ -1,5 +1,5 @@
 import './Signup.css';
-import React, { Component, useEffect, useContext } from 'react'
+import React, { Component, useEffect, useContext } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate, Link } from 'react-router-dom';
-import UserContext from '../../Contexts/UserContext'
+import UserContext from '../../Contexts/UserContext';
 
 export default function Login() {
     const [inputs, setInputs] = React.useState({
