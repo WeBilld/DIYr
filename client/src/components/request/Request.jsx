@@ -1,29 +1,41 @@
 import { Button } from '@mui/material';
 import './request.css';
 
-export default function Request({ data }) {
+export default function Request({ data, updateRequestsState }) {
     const handleAccept = () => {
         console.log(data._id);
         fetch('http://localhost:5500/rest/request/', {
             method: 'PUT',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify({
                 "requestId": data._id,
                 "status": "approved"
             })
         })
-        .then()
+            .then(res => updateRequestsState(data._id, 'approved'))
+            .catch(error => console.log(error));
         console.log("approved");
     };
     const handleReject = () => {
         console.log("denied");
         fetch('http://localhost:5500/rest/request/', {
             method: 'PUT',
+            credentials: 'include', // Don't forget to specify this if you need cookies
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify({
                 "requestId": data._id,
                 "status": "denied"
             })
         })
-        .then()
+            .then(res => updateRequestsState(data._id, 'denied'))
+            .catch(error => console.log(error));
     }
     return (
         <div className="requestContainer">
@@ -31,7 +43,7 @@ export default function Request({ data }) {
                 <img src={data.image_url} alt="" className="toolImage" />
                 <div className="statusWrapper">
                     <p>Status:</p>
-                    <p className="statusValue">{data.status}</p>
+                    <p className={data.status}>{data.status}</p>
                 </div>
             </div>
             <div className="requestInfoWrapper">
@@ -52,8 +64,12 @@ export default function Request({ data }) {
                 <p className="postedText">53 minutes ago</p>
             </div>
             <div className="requestButtons">
-                <Button className='acceptButton' variant='contained' onClick={handleAccept}>Accept</Button>
-                <Button className='rejectButton' variant='outlined' onClick={handleReject}>Reject</Button>
+                {data.status === 'pending' && (
+                    <>
+                        <Button className='acceptButton' variant='contained' onClick={handleAccept}>Accept</Button>
+                        <Button className='rejectButton' variant='outlined' onClick={handleReject}>Reject</Button>
+                    </>
+                )}
             </div>
         </div>
     )

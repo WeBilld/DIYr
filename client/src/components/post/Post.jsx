@@ -3,6 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function Post({
+  project_id,
   first_name,
   last_name,
   created_at,
@@ -27,6 +28,25 @@ export default function Post({
     "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80";
   let lastPhoto =
     "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fGd1eXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60";
+
+  const handleLike = (event) => {
+    fetch(`http://localhost:5500/rest/graphql/likeProject`, {
+      method: "POST",
+      credentials: 'include', // Don't forget to specify this if you need cookies
+      headers: {
+        "Content-Type": "application/json",
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ project_id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.likeProject);
+        // setProjects(data.getFolloweesProjects);
+      })
+      .catch((err) => console.warn(err));
+  }
+
   return (
     <div className="postContainer">
       <div className="creatorInfoWrapper">
@@ -45,7 +65,7 @@ export default function Post({
           {liked_by_user ? (
             <FavoriteIcon className="postLikeIcon" />
           ) : (
-            <FavoriteBorderIcon className="postLikeIcon" />
+            <FavoriteBorderIcon className="postLikeIcon" onClick={handleLike} />
           )}
           <p className="numLikes">{num_likes} Likes</p>
         </div>

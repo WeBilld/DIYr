@@ -11,10 +11,10 @@ router.all('/graphql/*', async (req, res) => {
   const { url } = registry.services.graphql;
   const operationName = req.originalUrl.split('/').splice(3).join('/');
 
-  const token = req.cookies.access_token;
+  // const token = req.cookies.access_token;
   // const decoded = await jwt.verify(token, process.env.SECRET_KEY);
   // const userId = decoded.userId;
-  const userId = 7;
+  userId = 7;
 
   let args, operationType, queryString;
   switch (operationName) {
@@ -39,6 +39,13 @@ router.all('/graphql/*', async (req, res) => {
       user_id: ${userId},
       description: "${req.body.description}",
       image_url: "${req.body.image_url}"
+      `;
+      break;
+    case "likeProject":
+      operationType = "mutation";
+      args = `
+        user_id: ${userId},
+        project_id: ${req.body.project_id}
       `;
       break;
   }

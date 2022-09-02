@@ -14,9 +14,10 @@ export default function Feed() {
 
     fetch(`http://localhost:5500/rest/graphql/getFolloweesProjects`, {
       method: "POST",
+      credentials: 'include', // Don't forget to specify this if you need cookies
       headers: {
-        //   Authorization: `Bearer ${auth.token}`,
         "Content-Type": "application/json",
+        'Accept': 'application/json'
       },
       body: JSON.stringify(body),
     })
@@ -32,6 +33,7 @@ export default function Feed() {
     <div className="feedContentContainer">
       {projects.map((p, idx) => (
         <Post
+          project_id={p._id}
           first_name={p.first_name}
           last_name={p.last_name}
           created_at={p.created_at}
