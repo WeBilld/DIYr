@@ -36,7 +36,7 @@ requestController.getRequestsByOwner = async (req, res, next) => {
 
   try {
     const getRequestsByOwnerQuery = `
-        SELECT *
+        SELECT requests.*, tools.tool_name, tools.image_url, users.first_name, users.last_name, users.city
         FROM requests
         JOIN users ON requests.borrower_id=users._id
         JOIN tools ON requests.tool_id=tools._id
@@ -114,6 +114,8 @@ requestController.resolveRequest = async (req, res, next) => {
         UPDATE requests
         SET status = $2
         WHERE _id = $1`;
+
+        console.log("status is", status, 'request id is', requestId);
 
     const response = await db.query(resolveRequestQuery, [requestId, status]);
     res.locals.request = response.rows;

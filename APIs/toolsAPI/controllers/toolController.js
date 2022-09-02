@@ -7,15 +7,13 @@ const toolController = {};
 toolController.getToolsByUser = async (req, res, next) => {
   const token = req.cookies.access_token;
   const decoded = await jwt.verify(token, process.env.SECRET_KEY, { maxAge: '3d' });
+  console.log('decoded:', decoded);
 
-  const userId = decoded.userId;
+  const {userId} = decoded;
   try {
 
     const getToolsByUserQuery = `
-    SELECT
-	  tools._id as toolId,
-	  tools.tool_name as toolName,
-	  tools.description as description
+    SELECT *
     FROM tools
     WHERE
 	  tools.owner_id = $1`;

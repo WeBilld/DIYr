@@ -39,7 +39,8 @@ const GetProjectType = new GraphQLObjectType({
     last_name: { type: GraphQLString },
     email: { type: GraphQLString },
     liked_by_user: { type: GraphQLBoolean },
-    followed_by_user: { type: GraphQLBoolean }
+    followed_by_user: { type: GraphQLBoolean },
+    profile_image_url: { type: GraphQLString },
   }),
 });
 
@@ -58,7 +59,7 @@ const RootQueryType = new GraphQLObjectType({
       resolve: async (parent, { user_id }) => {
         try {
           let getUserProjectsQuery = `
-          SELECT p.*, u.city, u.first_name, u.last_name, u.email,
+          SELECT p.*, u.city, u.first_name, u.last_name, u.email, u.profile_image_url,
           EXISTS (SELECT * FROM project_likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user,
           EXISTS (SELECT * FROM followee_follower f WHERE f.follower_id = $1 AND p.owner_id = f.followee_id) AS followed_by_user
           FROM PROJECTS AS p JOIN USERS AS u
@@ -84,13 +85,12 @@ const RootQueryType = new GraphQLObjectType({
       resolve: async (parent, { user_id, city }) => {
         try {
           let getLocalProjectsQuery = `
-          SELECT p.*, u.city, u.first_name, u.last_name, u.email,
+          SELECT p.*, u.city, u.first_name, u.last_name, u.email, u.profile_image_url,
           EXISTS (SELECT * FROM project_likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user,
           EXISTS (SELECT * FROM followee_follower f WHERE f.follower_id = $1 AND p.owner_id = f.followee_id) AS followed_by_user
           FROM projects p INNER JOIN users u ON p.owner_id = u._id
           WHERE u.city = $2 ORDER BY p.created_at;`;
           let response = await db.query(getLocalProjectsQuery, [user_id, city]);
-          console.log(`response of the getLocalProjectsQuery is`, response.rows);
           return response.rows;
         }
         catch (error) {
@@ -107,7 +107,7 @@ const RootQueryType = new GraphQLObjectType({
       resolve: async (parent, { user_id }) => {
         try {
           let getFolloweesProjectsQuery = `
-          SELECT p.*, u.city, u.first_name, u.last_name, u.email,
+          SELECT p.*, u.city, u.first_name, u.last_name, u.email, u.profile_image_url,
           EXISTS (SELECT * FROM project_likes l WHERE l.project_id = p._id AND l.user_id = $1) AS liked_by_user,
           EXISTS (SELECT * FROM followee_follower f WHERE f.follower_id = $1 AND p.owner_id = f.followee_id) AS followed_by_user
           FROM PROJECTS p
@@ -117,7 +117,6 @@ const RootQueryType = new GraphQLObjectType({
             WHERE f.follower_id = $1)
           ORDER BY p.created_at DESC`;
           let response = await db.query(getFolloweesProjectsQuery, [user_id]);
-          console.log(`response of the getFolloweesProjectsQuery is`, response.rows);
           return response.rows;
         }
         catch (error) {
@@ -170,6 +169,29 @@ const RootMutationType = new GraphQLObjectType({
         }
       }
     },
+    likeProject: {
+      type: GraphQLString,
+      description: 'Like another users project',
+      args: {
+        user_id: { type: GraphQLNonNull(GraphQLInt) },
+        project_id: { type: GraphQLNonNull(GraphQLInt) }
+      },
+      resolve: async (parent, {user_id, project_id}) => {
+        try {
+          console.log('in the query type');
+          const addLikeToJoinTableQuery = `
+            INSERT INTO project_likes (project_id, user_id)
+            VALUES ($1, $2);
+          `;
+  
+          const response = await db.query(addLikeToJoinTableQuery, [project_id, user_id]);
+
+          return `Project successfully liked!`;
+        } catch (error) {
+          return `projectsAPI.likeProject: ERROR: ${error.message}`;
+        }
+      }
+    }
   })
 })
 

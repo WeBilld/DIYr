@@ -33,7 +33,7 @@ router.get(
   jwtController.verifyToken,
   userController.findOneByUserId,
   (req, res) => {
-    res.status(200).json(res.locals);
+    return res.status(200).json(res.locals);
   }
 );
 
@@ -46,9 +46,12 @@ router.get('/:id', (req, res) => {
   res.status(200).json(res.locals);
 });
 
-router.put('/:id', (req, res) => {
-  res.status(200).json(res.locals);
-});
+router.put('/:id',
+  jwtController.verifyToken,
+  userController.updateUser,
+  (req, res) => {
+    res.status(200).json(res.locals);
+  });
 
 router.delete('/deleteUser/:id', (req, res) => {
   res.status(200).json(res.locals);
