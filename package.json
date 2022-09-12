@@ -1,0 +1,59 @@
+{
+  "name": "bikefriendlylandlord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "gateway": "nodemon apiGateway/apiGateway.js & nodemon APIs/usersAPI/server.js & nodemon APIs/toolsAPI/server.js & nodemon APIs/requestAPI/server.js & nodemon APIs/transactionsAPI/server.js & nodemon APIs/projectsAPI/server.js",
+    "build": " NODE_ENV=production webpack ",
+    "dev": "NODE_ENV=development webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BikeFriendlyLandlord/BikeFriendlyLandlord.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BikeFriendlyLandlord/BikeFriendlyLandlord/issues"
+  },
+  "homepage": "https://github.com/BikeFriendlyLandlord/BikeFriendlyLandlord#readme",
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/icons-material": "^5.10.2",
+    "@mui/material": "^5.10.2",
+    "axios": "^0.26.1",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cross-fetch": "^3.1.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "path": "^0.12.7",
+    "pg": "^8.8.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.4",
+    "concurrently": "^6.0.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "nodemon": "^2.0.15",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}

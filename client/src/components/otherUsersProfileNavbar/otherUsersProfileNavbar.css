@@ -1,0 +1,21 @@
+.otherUsersProfileNavbarContainer {
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    /* border: 1px solid rgba(255, 56, 92, .1); */
+    margin-bottom: 1em;
+    color: #333;
+}
+
+.otherUsersProfileNavbarLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.otherUsersProfileNavbarItem {
+    margin: 0 1em 0 1em;
+    cursor: pointer;
+    font-size: 15px;
+}

@@ -1,0 +1,64 @@
+.toolContainer {
+    min-height: 400px;
+    /* width: 30%; */
+    width: 275px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 0px 10px 0px;
+    border-radius: 5px;
+}
+
+.toolImg {
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.likeIcon {
+    position: relative;
+    top: -1.2em;
+    right: -4.5em;
+    color: #ff385c !important;
+    cursor: pointer;
+}
+
+.toolType {
+    font-size: 20px;
+}
+
+.toolInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.toolInfoItem {
+    display: flex;
+    padding: 0 10px 0 10px;
+}
+
+.toolInfoType {
+    flex: 1;
+    font-size: .9em;
+}
+
+.toolInfoValue {
+    flex: 2;
+    font-size: .8em;
+}
+
+.requestButtonWrapper {
+    margin-top: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requestButton {
+    width: 100%;
+    margin: 10px !important;
+}

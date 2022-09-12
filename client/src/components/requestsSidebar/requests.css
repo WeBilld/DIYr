@@ -1,0 +1,32 @@
+.requestsContainer {
+    flex: 1;
+    padding-top: 10px;
+    overflow-y: auto;
+    padding: 30px 10px 45px 0px;
+    color: #333;
+}
+
+.requestsWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.requestsOptionsWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.requestTitle {
+    margin-bottom: .5em;
+}
+
+.requestsOption {
+    font-size: .8em;
+    cursor: pointer;
+}

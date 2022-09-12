@@ -1,0 +1,13 @@
+.transactionsContainer {
+    flex: 3;
+    width: 100%;
+}
+
+.transactionsWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3em;
+}

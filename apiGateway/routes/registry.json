@@ -1,0 +1,39 @@
+{
+  "services": {
+    "users": {
+      "apiName": "users",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 3000,
+      "url": "http://localhost:3000/users/"
+    },
+    "tools": {
+      "apiName": "tools",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 4000,
+      "url": "http://localhost:4000/tools/"
+    },
+    "request": {
+      "apiName": "request",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 5000,
+      "url": "http://localhost:5000/request/"
+    },
+    "transaction": {
+      "apiName": "transaction",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 2500,
+      "url": "http://localhost:2500/transaction/"
+    },
+    "graphql": {
+      "apiName": "project",
+      "protocol": "http",
+      "host": "localhost",
+      "port": 2000,
+      "url": "http://localhost:2000/graphql/"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.feedContainer {
+    width: 100%;
+    height: calc(100vh - 77px);
+    display: flex;
+    justify-content: center;
+}
+
+.feedWrapper {
+    width: 40%;
+    height: 100%;
+}
