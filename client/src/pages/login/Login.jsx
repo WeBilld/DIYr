@@ -7,8 +7,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
 
-import UserContext from '../../Contexts/UserContext';
-import { Navigate } from 'react-router-dom';
+import  UserContext from '../../Contexts/UserContext';
+import { Navigate, Link } from 'react-router-dom';
+
 
 export default function Login() {
     const [inputs, setInputs] = React.useState({
@@ -92,7 +93,9 @@ export default function Login() {
                             />
                             <Stack className="submitButtonsStack" direction="row" spacing={3} justifyContent="center">
                                 <Button variant="contained" size="large" onClick={submitLogin}>Log In</Button>
-                                <Button variant="contained" size="large">Sign Up</Button>
+                                <Link to="/signup" style={{textDecoration: 'none'}}>
+                                    <Button variant="contained" size="large">Sign Up</Button>
+                                </Link>
                             </Stack>
                         </Stack>
                     </Box>
